@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from webapp.models import IssueTracker, Status, Type
-from webapp.forms import TaskForm
+from webapp.models import IssueTracker
+from webapp.forms import TaskForm, StatusForm, TypeForm
 from django.views.generic import View, TemplateView
 
 
@@ -30,60 +30,56 @@ class TaskDeleteView(View):
         task = get_object_or_404(IssueTracker, pk=pk)
         if request.method == 'GET':
             return render(request, 'delete.html', context={'task': task})
-        elif request.method == 'POST':
-            task.delete()
-            return redirect("task_list")
-#
-#
-# def task_create_view(request, *args, **kwargs):
-#     if request.method == "GET":
-#         return render(request, 'task_create.html', context={
-#             'form': TaskForm()
-#         })
-#     elif request.method == 'POST':
-#         form = TaskForm(data=request.POST)
-#         if form.is_valid():
-#             summary = form.cleaned_data['summary']
-#             description = form.cleaned_data['description']
-#             status = form.cleaned_data['status']
-#             completion_time = form.cleaned_data['completion_time']
-#             if completion_time:
-#                 task = To_Do_list.objects.create(summary=summary, description=description,
-#                                                  completion_time=completion_time,
-#                                                  status=status)
-#             else:
-#                 task = To_Do_list.objects.create(summary=summary, description=description,
-#                                                  status=status)
-#             return redirect('task_view', pk=task.pk)
-#         else:
-#             return render(request, 'task_create.html', context={'form': form})
-#     else:
-#         return HttpResponseNotAllowed(permitted_methods=['GET', 'POST'])
-#
-#
-# def task_update_view(request, pk):
-#     task = get_object_or_404(To_Do_list, pk=pk)
-#     if request.method == "GET":
-#         form = TaskForm(data={
-#             'status': task.status,
-#             'summary': task.summary,
-#             'description': task.description,
-#             'completion_time': task.completion_time
-#         })
-#         return render(request, 'task_update.html', context={'form': form, 'task': task})
-#     elif request.method == 'POST':
-#         form = TaskForm(data=request.POST)
-#         if form.is_valid():
-#             task.status = form.cleaned_data['status']
-#             task.summary = form.cleaned_data['summary']
-#             task.description = form.cleaned_data['description']
-#             task.completion_time = form.cleaned_data['completion_time']
-#             task.save()
-#             return redirect('task_view', pk=task.pk)
-#         else:
-#             return render(request, 'task_update.html', context={'task': task, 'form': form})
-#     else:
-#         return HttpResponseNotAllowed(permitted_methods=['GET', 'POST'])
-#
-#
-#
+
+    def post(self, request, pk):
+        task = get_object_or_404(IssueTracker, pk=pk)
+        task.delete()
+        return redirect("index")
+
+
+class TaskCreateView(View):
+
+    def get(self, request, *args, **kwargs):
+            return render(request, 'task_create.html', context={
+                'form': TaskForm(),
+                'form_status': StatusForm(),
+                'form_type': TypeForm(),
+            })
+
+    def post(self, request, *args, **kwargs):
+        form = TaskForm(data=request.POST)
+        form_status = StatusForm(data=request.POST)
+        form_type = TypeForm(data=request.POST)
+        if form.is_valid() and form_status.is_valid() and form_type.is_valid():
+            summary = form.cleaned_data['summary']
+            description = form.cleaned_data['description']
+            status = form_status.cleaned_data['status']
+            type = form_type.cleaned_data['type']
+            task = IssueTracker.objects.create(summary=summary, description=description, status=status, type=type)
+            return redirect('task_view', pk=task.pk)
+        else:
+            return render(request, 'task_create.html', context={'form': form})
+
+
+
+def task_update_view(request, pk):
+    task = get_object_or_404(To_Do_list, pk=pk)
+    if request.method == "GET":
+        form = TaskForm(data={
+            'status': task.status,
+            'summary': task.summary,
+            'description': task.description,
+            'completion_time': task.completion_time
+        })
+        return render(request, 'task_update.html', context={'form': form, 'task': task})
+    elif request.method == 'POST':
+        form = TaskForm(data=request.POST)
+        if form.is_valid():
+            task.status = form.cleaned_data['status']
+            task.summary = form.cleaned_data['summary']
+            task.description = form.cleaned_data['description']
+            task.completion_time = form.cleaned_data['completion_time']
+            task.save()
+            return redirect('task_view', pk=task.pk)
+        else:
+            return render(request, 'task_update.html', context={'task': task, 'form': form})
