@@ -61,24 +61,33 @@ class TaskCreateView(View):
             return render(request, 'task_create.html', context={'form': form})
 
 
+class TaskUpdateView(View):
 
-def task_update_view(request, pk):
-    task = get_object_or_404(To_Do_list, pk=pk)
-    if request.method == "GET":
+    def get(self, request, pk):
+        task = get_object_or_404(IssueTracker, pk=pk)
         form = TaskForm(data={
-            'status': task.status,
             'summary': task.summary,
-            'description': task.description,
-            'completion_time': task.completion_time
+            'description': task.description
         })
-        return render(request, 'task_update.html', context={'form': form, 'task': task})
-    elif request.method == 'POST':
+        form_status = StatusForm(data={
+            'status': task.status
+        })
+        form_type = TypeForm(data={
+            'type': task.type
+        })
+        return render(request, 'task_update.html', context={'form': form, 'task': task,
+                                                            'form_status': form_status, 'form_type': form_type})
+
+    def post(self, request, pk, *args, **kwargs):
+        task = get_object_or_404(IssueTracker, pk=pk)
         form = TaskForm(data=request.POST)
-        if form.is_valid():
-            task.status = form.cleaned_data['status']
+        form_status = StatusForm(data=request.POST)
+        form_type = TypeForm(data=request.POST)
+        if form.is_valid() and form_status.is_valid() and form_type.is_valid():
+            task.status = form_status.cleaned_data['status']
             task.summary = form.cleaned_data['summary']
             task.description = form.cleaned_data['description']
-            task.completion_time = form.cleaned_data['completion_time']
+            task.type = form_type.cleaned_data['type']
             task.save()
             return redirect('task_view', pk=task.pk)
         else:

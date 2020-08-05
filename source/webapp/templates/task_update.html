@@ -16,6 +16,12 @@
         {% for field in form %}
             {% include 'partial/form_field.html' %}
         {% endfor %}
+        {% for filed in form_status %}
+            {{filed}}
+        {% endfor %}
+        {% for filed in form_type %}
+            {{filed}}
+        {% endfor %}
 
     <div class="col-sm-2">
         <button type="submit" class="btn btn-primary mb-2">Update</button>

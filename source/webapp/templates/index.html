@@ -14,7 +14,7 @@
                     <p>Time to complete: {{ task.completion_time }}</p>
             </div>
             <div class="coL col-lg-1 mt-5">
-{#                <a href="{% url 'task_update_view' task.pk %}" ><button type="submit"  class="btn btn-primary">Update</button></a>#}
+                <a href="{% url 'task_update_view' task.pk %}" ><button type="submit"  class="btn btn-primary">Update</button></a>
             </div>
             <div class="coL col-lg-1 mt-5">
                 <a href="{% url 'task_delete_view' task.pk %}" ><button type="submit"  class="btn btn-primary">Delete</button></a>
