@@ -11,7 +11,7 @@ class IssueTracker(models.Model):
     completion_time = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
     def __str__(self):
-        return "{}. {}".format(self.pk, self.description)
+        return "{}. {}".format(self.pk, self.summary)
 
     class Meta:
         verbose_name = 'Задача'
@@ -31,7 +31,8 @@ class Status(models.Model):
 
 
 class Type(models.Model):
-    name = models.CharField(max_length=300, null=False, blank=False, choices=Type_CHOICES, verbose_name='Тип')
+    name = models.CharField(max_length=300, null=False, blank=False, choices=Type_CHOICES, default='Task',
+                            verbose_name='Тип')
 
     def __str__(self):
         return self.name
