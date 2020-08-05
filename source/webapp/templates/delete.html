@@ -18,7 +18,7 @@
             {% csrf_token %}
         <div class="coL col-lg-3 ml-5 mt-1">
             <a href="{% url 'task_delete_view' task.pk %}" >
-                <button type="submit"  class="btn btn-primary">Delete</button>
+                <button type="submit"  class="btn btn-danger">Delete</button>
             </a>
         </div>
         </form>
