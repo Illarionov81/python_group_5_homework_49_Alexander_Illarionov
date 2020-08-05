@@ -13,20 +13,26 @@ class TasksView(TemplateView):
         context['task_list'] = task_list
         return context
 
-#
-# def task_view(request, pk):
-#     task = get_object_or_404(To_Do_list, pk=pk)
-#     context = {'task': task}
-#     return render(request, "task.html", context)
-#
-#
-# def task_delete_view(request, pk):
-#     task = get_object_or_404(To_Do_list, pk=pk)
-#     if request.method == 'GET':
-#         return render(request, 'delete.html', context={'task': task})
-#     elif request.method == 'POST':
-#         task.delete()
-#         return redirect("task_list")
+
+class OneTaskView(TemplateView):
+    template_name = 'task.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        task = get_object_or_404(IssueTracker, pk=pk)
+        context['task'] = task
+        return context
+
+
+class TaskDeleteView(View):
+    def get(self, request, pk):
+        task = get_object_or_404(IssueTracker, pk=pk)
+        if request.method == 'GET':
+            return render(request, 'delete.html', context={'task': task})
+        elif request.method == 'POST':
+            task.delete()
+            return redirect("task_list")
 #
 #
 # def task_create_view(request, *args, **kwargs):

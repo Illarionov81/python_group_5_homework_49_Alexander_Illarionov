@@ -9,7 +9,7 @@
     {% for task in task_list %}
         <div class="row">
             <div class="col col-lg-6">
-{#                <h3><a href="{% url 'task_view' task.pk %}">№{{ task.pk }}. Status: <b>{{ task.get_status_display }}</b></a> </h3>#}
+                <h3><a href="{% url 'task_view' task.pk %}">№{{ task.pk }}. Status: <b>{{ task.status }}</b></a> </h3>
                     <p>Summary: {{ task.summary }} </p>
                     <p>Time to complete: {{ task.completion_time }}</p>
             </div>
@@ -17,7 +17,7 @@
 {#                <a href="{% url 'task_update_view' task.pk %}" ><button type="submit"  class="btn btn-primary">Update</button></a>#}
             </div>
             <div class="coL col-lg-1 mt-5">
-{#                <a href="{% url 'task_delete_view' task.pk %}" ><button type="submit"  class="btn btn-primary">Delete</button></a>#}
+                <a href="{% url 'task_delete_view' task.pk %}" ><button type="submit"  class="btn btn-primary">Delete</button></a>
             </div>
         </div>
         <hr>
