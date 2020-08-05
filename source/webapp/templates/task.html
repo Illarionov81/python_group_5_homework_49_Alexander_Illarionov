@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}View task{% endblock %}
+
+{% block menu %}
+<li class="nav-item px-3">
+    <a class="navbar-brand"  href="{% url 'task_delete_view' task.pk %}" >Удалить</a>
+</li>
+<li class="nav-item px-3">
+    <a class="navbar-brand"  href="{% url 'task_update_view' task.pk %}" >Редактировать</a>
+</li>
+{% endblock %}
+
+{% block contant %}
+<div class="col col-lg-6">
+    <h1 class="pt-4"><b>Task: </b></h1>
+    <h3>№{{ task.pk }}. Status: <b class="text-primary">{{ task.get_status_display }}</b></h3>
+    <p>Summary : {{ task.summary }}</p>
+    <p>Description:  </p>
+    <pre>
+        {{ task.description|linebreaks }}
+    </pre>
+    <p>Time to complete: {{ task.completion_time }}</p>
+</div>
+    <hr>
+{% endblock %}
+

@@ -1,0 +1,9 @@
+hr {
+    margin: 10px 0;
+}
+
+.error {
+    font-weight: bold;
+    color: red;
+    margin-top: 2px;
+}

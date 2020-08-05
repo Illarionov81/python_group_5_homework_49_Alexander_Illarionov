@@ -1,0 +1,12 @@
+body,
+p
+{
+    margin: 0;
+}
+
+.clearfix::after {
+    content: '';
+    font-size: 0;
+    display: table;
+    clear: both;
+}
