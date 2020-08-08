@@ -1,9 +1,11 @@
-<div class="form-group col-md-6">
-    <label for="{{field.id_for_label }}">{{ field.label }}</label>
+<div class="form-group row">
+    <label class="col-1 " for="{{field.id_for_label }}">{{ field.label }}</label>
+    <div class="col-lg-6">
     {{ field }}<br/>
     {% if field.errors %}
         {% for error in field.errors %}
             <p class="error">{{ error }}</p>
         {% endfor %}
     {% endif %}
+    </div>
 </div>
