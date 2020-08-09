@@ -7,7 +7,7 @@ class IssueTracker(models.Model):
     summary = models.CharField(max_length=300, null=False, blank=False, default="None description", verbose_name='Задание')
     description = models.TextField(max_length=3500, null=True, blank=True, default="None description", verbose_name='Описание')
     status = models.ForeignKey('webapp.Status', related_name='issue', on_delete=models.PROTECT, verbose_name='Статус')
-    type_old = models.ForeignKey('webapp.Type', related_name='type_set', on_delete=models.PROTECT, verbose_name='Тип')
+    # type_old = models.ForeignKey('webapp.Type', related_name='type_set', on_delete=models.PROTECT, verbose_name='Тип')
     type = models.ManyToManyField('webapp.Type', related_name='type', verbose_name='Тип')
     completion_time = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
 
