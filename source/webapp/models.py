@@ -1,10 +1,14 @@
 from django.db import models
+from django.core.validators import MinLengthValidator
+
 
 STATUS_CHOICES = [('New', 'Новая'), ('In_progress', 'В процессе'),  ('Done', 'Сделано')]
 Type_CHOICES = [('Task', 'Задача'), ('Bug', 'Ошибка'),  ('Enhancement', 'Улучшение')]
 
+
 class IssueTracker(models.Model):
-    summary = models.CharField(max_length=300, null=False, blank=False, default="None description", verbose_name='Задание')
+    summary = models.CharField(max_length=300, null=False, blank=False, default="None description", verbose_name='Задание',
+                               validators=[MinLengthValidator(10),])
     description = models.TextField(max_length=3500, null=True, blank=True, default="None description", verbose_name='Описание')
     status = models.ForeignKey('webapp.Status', related_name='issue', on_delete=models.PROTECT, verbose_name='Статус')
     # type_old = models.ForeignKey('webapp.Type', related_name='type_set', on_delete=models.PROTECT, verbose_name='Тип')
