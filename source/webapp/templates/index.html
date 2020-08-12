@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col col-lg-6">
                 <h3><a href="{% url 'task_view' task.pk %}">№{{ task.pk }}. Status: <b>{{ task.status.get_status_display }}</b></a> </h3>
-                <h3>Тип задачи: {{ task.type.get_name_display }}</h3>
+                <h3>Тип задачи: {% for type in task.type.all %}<b class="text-primary">{{ type }}</b>{% if not forloop.last%}, {% endif %}{% endfor %}</h3>
                     <p>Summary: {{ task.summary }} </p>
                     <p>Create time: {{ task.completion_time }}</p>
             </div>

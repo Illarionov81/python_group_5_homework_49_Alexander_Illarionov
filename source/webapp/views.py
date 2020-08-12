@@ -55,18 +55,6 @@ class TaskCreateView(FormView):
     def get_success_url(self):
         return reverse('task_view', kwargs={'pk': self.task.pk})
 
-    # def post(self, request, *args, **kwargs):
-    #     form = TaskForm(data=request.POST)
-    #     if form.is_valid():
-    #         summary = form.cleaned_data['summary']
-    #         description = form.cleaned_data['description']
-    #         status = form.cleaned_data['status']
-    #         type = form.cleaned_data['type']
-    #         task = IssueTracker.objects.create(summary=summary, description=description, status=status, type=type)
-    #         return redirect('task_view', pk=task.pk)
-    #     else:
-    #         return render(request, 'task_create.html', context={'form': form})
-
 
 class TaskUpdateView(FormView):
     template_name = 'task_update.html'
@@ -104,25 +92,3 @@ class TaskUpdateView(FormView):
     def get_success_url(self):
         return reverse('task_view', kwargs={'pk': self.task.pk})
 
-    # def get(self, request, pk):
-    #     task = get_object_or_404(IssueTracker, pk=pk)
-    #     form = TaskForm(initial={
-    #         'summary': task.summary,
-    #         'description': task.description,
-    #         'status': task.status,
-    #         'type': task.type,
-    #     })
-    #     return render(request, 'task_update.html', context={'form': form, 'task': task})
-    #
-    # def post(self, request, pk, *args, **kwargs):
-    #     task = get_object_or_404(IssueTracker, pk=pk)
-    #     form = TaskForm(data=request.POST)
-    #     if form.is_valid():
-    #         task.status = form.cleaned_data['status']
-    #         task.summary = form.cleaned_data['summary']
-    #         task.description = form.cleaned_data['description']
-    #         task.type = form.cleaned_data['type']
-    #         task.save()
-    #         return redirect('task_view', pk=task.pk)
-    #     else:
-    #         return render(request, 'task_update.html', context={'task': task, 'form': form})
