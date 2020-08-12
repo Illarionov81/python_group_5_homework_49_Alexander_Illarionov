@@ -43,13 +43,7 @@ class TaskCreateView(FormView):
     form_class = TaskForm
 
     def form_valid(self, form):
-        data = {}
-        type = form.cleaned_data.pop('type')
-        for key, value in form.cleaned_data.items():
-            if value is not None:
-                data[key] = value
-        self.task = IssueTracker.objects.create(**data)
-        self.task.type.set(type)
+        self.task = form.save()
         return super().form_valid(form)
 
     def get_success_url(self):
@@ -69,20 +63,14 @@ class TaskUpdateView(FormView):
         context['task'] = self.task
         return context
 
-    def get_initial(self):
-        initial = {}
-        for key in 'summary', 'description', 'status', 'type':
-            initial[key] = getattr(self.task, key)
-        initial['type'] = self.task.type.all()
-        return initial
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs.pop('initial')
+        kwargs['instance'] = self.task
+        return kwargs
 
     def form_valid(self, form):
-        type = form.cleaned_data.pop('type')
-        for key, value in form.cleaned_data.items():
-            if value is not None:
-                setattr(self.task, key, value)
-        self.task.save()
-        self.task.type.set(type)
+        self.task = form.save()
         return super().form_valid(form)
 
     def get_object(self):
