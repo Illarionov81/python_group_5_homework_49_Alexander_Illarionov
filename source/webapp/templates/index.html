@@ -1,16 +1,28 @@
 {% extends 'base.html' %}
 
 {% block title %}View tasks{% endblock %}
+{#{% block menu %}#}
+{#<li class="nav-item px-3">#}
+{#    <a class="navbar-brand"  type="submit" href="{% url 'multi_delete' %}">Удалить выбранные задачи </a>#}
+{#</li>#}
+{#{% endblock %}#}
 
 {% block contant %}
+    <form action="{% url 'multi_delete'%}" method="POST">
     {% csrf_token %}
-    <h1 class="pt-4"><b>IssueTask: </b></h1>
+        <div class="row">
+            <div class="col col-lg-6"><h1 class="pt-4"><b>IssueTask: </b></h1></div>
+            <div class="col col-lg-6"><input class=" btn btn-outline-dark btn-sm mb-1 mr-2 mt-5" type="submit" value="Удалить выбранные задачи"></div>
+        </div>
     <hr>
     {% for task in task_list %}
         <div class="row">
+            <div class="col col-lg-2">
+                    <input class="ml-4" type="checkbox" name="id" value="{{ task.pk }}">
+            </div>
             <div class="col col-lg-6">
                 <h3><a href="{% url 'task_view' task.pk %}">№{{ task.pk }}. Status: <b>{{ task.status.get_status_display }}</b></a> </h3>
-                <h3>Тип задачи: {% for type in task.type.all %}<b class="text-primary">{{ type }}</b>{% if not forloop.last%}, {% endif %}{% endfor %}</h3>
+                <h3>Тип задачи: {% for type in task.type.all %}<b class="text-primary">{{ type.get_name_display }}</b>{% if not forloop.last%}, {% endif %}{% endfor %}</h3>
                     <p>Summary: {{ task.summary }} </p>
                     <p>Create time: {{ task.completion_time }}</p>
             </div>
@@ -23,6 +35,6 @@
         </div>
         <hr>
     {% endfor %}
-    <hr>
     </form>
+    <hr>
 {% endblock %}

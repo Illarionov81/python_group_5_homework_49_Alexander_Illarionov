@@ -38,6 +38,12 @@ class TaskDeleteView(View):
         return redirect("index")
 
 
+def multi_delete(request):
+    data = request.POST.getlist('id')
+    IssueTracker.objects.filter(pk__in=data).delete()
+    return redirect('index')
+
+
 class TaskCreateView(FormView):
     template_name = 'task_create.html'
     form_class = TaskForm

@@ -2,18 +2,10 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.core.validators import MinLengthValidator, ProhibitNullCharactersValidator
 
+from webapp.validators import is_title, is_null
+
 STATUS_CHOICES = [('New', 'Новая'), ('In_progress', 'В процессе'),  ('Done', 'Сделано')]
 Type_CHOICES = [('Task', 'Задача'), ('Bug', 'Ошибка'),  ('Enhancement', 'Улучшение')]
-
-
-def is_title(string):
-    if not string[0].isupper():
-        raise ValidationError('Это поле надо заплонять с заглавной буквы')
-
-
-def is_null(string):
-    if str(0) in string:
-        raise ValidationError("Null characters are not allowed.")
 
 
 class IssueTracker(models.Model):
