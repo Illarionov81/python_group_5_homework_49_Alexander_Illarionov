@@ -15,7 +15,7 @@ class IssueTracker(models.Model):
     status = models.ForeignKey('webapp.Status', related_name='issue', on_delete=models.PROTECT, verbose_name='Статус')
     type = models.ManyToManyField('webapp.Type', related_name='type', verbose_name='Тип')
     completion_time = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
-    update_time = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
+    update_at = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
 
     def __str__(self):
         return "{}. {}".format(self.pk, self.summary)
@@ -38,7 +38,7 @@ class Status(models.Model):
 
 
 class Type(models.Model):
-    name = models.CharField(max_length=300, null=False, blank=False, choices=Type_CHOICES, default='Task',
+    name = models.CharField(max_length=300, null=False, blank=False, default='Task',
                             verbose_name='Тип')
 
     def __str__(self):

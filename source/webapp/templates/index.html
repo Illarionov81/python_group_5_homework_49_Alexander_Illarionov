@@ -3,7 +3,11 @@
 {% block title %}View tasks{% endblock %}
 {#{% block menu %}#}
 {#<li class="nav-item px-3">#}
+{#<form action="{% url 'multi_delete'%}" method="POST">#}
+{#    {% csrf_token %}#}
+{#    <input class=" btn btn-outline-dark btn-sm mb-1 mr-2 mt-5" type="submit" value="Удалить выбранные задачи">#}
 {#    <a class="navbar-brand"  type="submit" href="{% url 'multi_delete' %}">Удалить выбранные задачи </a>#}
+{#</form>#}
 {#</li>#}
 {#{% endblock %}#}
 
@@ -22,7 +26,7 @@
             </div>
             <div class="col col-lg-6">
                 <h3><a href="{% url 'task_view' task.pk %}">№{{ task.pk }}. Status: <b>{{ task.status.get_status_display }}</b></a> </h3>
-                <h3>Тип задачи: {% for type in task.type.all %}<b class="text-primary">{{ type.get_name_display }}</b>{% if not forloop.last%}, {% endif %}{% endfor %}</h3>
+                <h3>Тип задачи: {% for type in task.type.all %}<b class="text-primary">{{ type }}</b>{% if not forloop.last%}, {% endif %}{% endfor %}</h3>
                     <p>Summary: {{ task.summary }} </p>
                     <p>Create time: {{ task.completion_time }}</p>
             </div>

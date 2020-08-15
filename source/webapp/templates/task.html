@@ -14,15 +14,14 @@
 {% block contant %}
 <div class="col col-lg-6">
     <h1 class="pt-4"><b>Task: </b></h1>
-    <h3>№{{ task.pk }}. Status: <b class="text-primary">{{ task.status }}</b></h3>
+    <h3>№{{ task.pk }}. Status: <b class="text-primary">{{ task.status.get_status_display }}</b></h3>
     <p>Тип задачи: {% for type in task.type.all %}<b class="text-primary">{{ type }}</b>{% if not forloop.last%}, {% endif %}{% endfor %}</p>
 
     <p>Summary : {{ task.summary }}</p>
     <p>Description:  </p>
-    <pre>
-        {{ task.description|linebreaks }}
-    </pre>
-    <p>Time to complete: {{ task.completion_time }}</p>
+    <pre>{{ task.description|linebreaks }}</pre>
+    <p>Time to create: {{ task.completion_time }}</p>
+    <p>Update_at : {{ task.update_at }}</p>
 </div>
     <hr>
 {% endblock %}
