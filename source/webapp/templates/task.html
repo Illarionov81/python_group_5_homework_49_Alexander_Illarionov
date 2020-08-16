@@ -15,7 +15,7 @@
 <div class="col col-lg-6">
     <h1 class="pt-4"><b>Task: </b></h1>
     <h3>№{{ task.pk }}. Status: <b class="text-primary">{{ task.status.get_status_display }}</b></h3>
-    <p>Тип задачи: {% for type in task.type.all %}<b class="text-primary">{{ type }}</b>{% if not forloop.last%}, {% endif %}{% endfor %}</p>
+    <p>Тип задачи: {% for type in task.type.all %}<b class="text-primary">{{ type.get_name_display }}</b>{% if not forloop.last%}, {% endif %}{% endfor %}</p>
 
     <p>Summary : {{ task.summary }}</p>
     <p>Description:  </p>

@@ -38,7 +38,7 @@ class Status(models.Model):
 
 
 class Type(models.Model):
-    name = models.CharField(max_length=300, null=False, blank=False, default='Task',
+    name = models.CharField(max_length=300, null=False, blank=False, choices=Type_CHOICES, default='Task',
                             verbose_name='Тип')
 
     def __str__(self):
