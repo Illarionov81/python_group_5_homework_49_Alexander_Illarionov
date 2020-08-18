@@ -75,3 +75,6 @@ hr {
     text-align: center;
     border: solid 1px gray;
 }
+.type_battot_delete_all {
+    text-align: right;
+}
