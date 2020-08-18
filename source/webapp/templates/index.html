@@ -19,6 +19,10 @@
             <div class="col col-lg-6"><input class=" btn btn-outline-dark btn-sm mb-1 mr-2 mt-5" type="submit" value="Удалить выбранные задачи"></div>
         </div>
     <hr>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+    <hr>
     {% for task in task_list %}
         <div class="row">
             <div class="col col-lg-2">
@@ -40,6 +44,10 @@
         </div>
         <hr>
     {% endfor %}
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+    <hr>
     </form>
     <hr>
 {% endblock %}
