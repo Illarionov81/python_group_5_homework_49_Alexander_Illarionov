@@ -14,19 +14,20 @@
     {% include 'partial/simple_search.html' %}
 {% endblock %}
 {% block contant %}
-    <form action="{% url 'multi_delete'%}" method="POST">
-    {% csrf_token %}
-        <div class="row">
-            <div class="col col-lg-6"><h1 class="pt-4"><b>IssueTask: </b></h1></div>
-            <div class="col col-lg-6 pt-4 mt-2 type_battot_delete_all">
-                <input class="btn  btn-danger" type="submit" value="Удалить выбранные задачи">
-            </div>
-        </div>
     <hr>
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}
     <hr>
+    <form action="{% url 'multi_delete'%}" method="POST">
+    {% csrf_token %}
+        <div class="row">
+            <div class="col col-lg-6"><h1 class="pt-4"><b>IssueTask: </b></h1></div>
+            <div class="col col-lg-6 pt-4 mt-2 type_battot_delete_all">
+                <input class="btn btn-danger" type="submit" value="Удалить выбранные задачи">
+            </div>
+        </div>
+
     {% for task in task_list %}
         <div class="row">
             <div class="col col-lg-2">
@@ -50,10 +51,11 @@
         </div>
         <hr>
     {% endfor %}
+
+    </form>
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}
     <hr>
-    </form>
     <hr>
 {% endblock %}
