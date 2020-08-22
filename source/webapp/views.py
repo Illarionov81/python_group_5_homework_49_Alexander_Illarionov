@@ -86,8 +86,6 @@ class TaskDeleteView(View):
 
 def multi_delete(request):
     data = request.POST.getlist('id')
-    print(request.POST)
-    print(data)
     IssueTracker.objects.filter(pk__in=data).delete()
     return redirect('index')
 

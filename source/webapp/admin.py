@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import IssueTracker, Status, Type
+from .models import IssueTracker, Status, Type, Project
 
 
 class IssueAdmin(admin.ModelAdmin):
@@ -10,8 +10,15 @@ class IssueAdmin(admin.ModelAdmin):
     search_fields = ('type',)
 
 
+class ProjectAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'name',)
+    list_display_links = ('pk', 'name')
+    search_fields = ('name',)
+
+
 admin.site.register(IssueTracker, IssueAdmin)
 admin.site.register(Status)
 admin.site.register(Type)
+admin.site.register(Project, ProjectAdmin)
 
 

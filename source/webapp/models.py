@@ -1,10 +1,19 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator, ProhibitNullCharactersValidator
+from django.utils import timezone
+
 from webapp.validators import is_title, is_null
 
 STATUS_CHOICES = [('New', 'Новая'), ('In_progress', 'В процессе'),  ('Done', 'Сделано')]
 Type_CHOICES = [('Task', 'Задача'), ('Bug', 'Ошибка'),  ('Enhancement', 'Улучшение')]
+
+
+class Project(models.Model):
+    name = models.CharField(max_length=50, null=False, blank=False, default='None', verbose_name='Название')
+    description = models.TextField(max_length=300, null=False, blank=False, default="None", verbose_name='Описание')
+    starts_date = models.DateField(null=False, blank=False, verbose_name='дата начала')
+    finish_date = models.DateField(null=True, blank=True, verbose_name='дата окончания')
 
 
 class IssueTracker(models.Model):

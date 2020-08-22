@@ -1,10 +1,7 @@
 from django import forms
 from django.core.exceptions import ValidationError
-
-
 from django.forms import widgets
-
-from webapp.models import IssueTracker, Status, Type
+from webapp.models import IssueTracker, Status, Type, Project
 from django.core.validators import BaseValidator
 from django.utils.deconstruct import deconstructible
 
@@ -19,6 +16,12 @@ from django.utils.deconstruct import deconstructible
 #
 #     def clean(self, x):
 #         return len(x)
+
+class ProjectForm(forms.ModelForm):
+    class Meta:
+        model = Project
+        fields = ['name', 'description', 'starts_date', 'finish_date']
+
 
 
 class TaskForm(forms.ModelForm):
