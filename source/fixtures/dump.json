@@ -1,8 +1,19 @@
 [
 {
+  "model": "webapp.project",
+  "pk": 1,
+  "fields": {
+    "name": "Project #1",
+    "description": "\u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 Id \u0434\u043b\u044f \u043c\u0438\u0433\u0440\u0430\u0446\u0438\u0438 \u0441\u043e \u0441\u0432\u044f\u0437\u044c\u044e \u0441 \u0437\u0430\u0434\u0430\u0447\u0430\u043c\u0438",
+    "starts_date": "2020-08-22",
+    "finish_date": null
+  }
+},
+{
   "model": "webapp.issuetracker",
   "pk": 1,
   "fields": {
+    "project": 1,
     "summary": "\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0437\u0430\u0434\u0430\u0447",
     "description": "\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0437\u0430\u0434\u0430\u0447 \u0447\u0435\u0440\u0435\u0437 \u043f\u0430\u043d\u0435\u043b\u044c \u0430\u0434\u043c\u0438\u043d\u043a\u0438",
     "status": 4,
@@ -19,6 +30,7 @@
   "model": "webapp.issuetracker",
   "pk": 4,
   "fields": {
+    "project": 1,
     "summary": "\u041d\u043e\u0432\u044b\u0439 \u0442\u0438\u043f",
     "description": "\u0423 \u044d\u0442\u043e\u0439 \u0437\u0430\u0434\u0430\u0447\u0438 \u0434\u0440\u0443\u0433\u043e\u0439 \u0442\u0438\u043f\r\n\u043f\u0440\u043e\u0432\u0435\u0440\u043a\u0430 \u043e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u044f \u0434\u0430\u0442\u044b",
     "status": 2,
@@ -34,6 +46,7 @@
   "model": "webapp.issuetracker",
   "pk": 5,
   "fields": {
+    "project": 1,
     "summary": "\u0417\u0430\u0434\u0430\u0447\u0430 \u043f\u043e \u043c\u0438\u043d\u0438\u043c\u0443\u043c\u0443",
     "description": "\u0412\u044b\u043f\u043e\u043b\u043d\u0438\u0442\u044c \u043c\u0438\u043d\u0438\u043c\u0443\u043c \u0442\u0440\u0435\u0431\u043e\u0432\u0430\u043d\u0438\u0439 \u043f\u043e \u0434\u0437",
     "status": 2,
@@ -49,6 +62,7 @@
   "model": "webapp.issuetracker",
   "pk": 6,
   "fields": {
+    "project": 1,
     "summary": "\u0421\u0432\u0435\u0440\u0445",
     "description": "\u043f\u0440\u043e\u0434\u043e\u043b\u0436\u0430\u0442\u044c \u0434\u043e\u0431\u0430\u0432\u043b\u044f\u0442\u044c \u0417\u0430\u0434\u0430\u0447\u0438",
     "status": 3,
@@ -63,6 +77,7 @@
   "model": "webapp.issuetracker",
   "pk": 7,
   "fields": {
+    "project": 1,
     "summary": "\u043d\u043e\u043c\u0435\u0440 7",
     "description": "\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c 7\u044e \u0437\u0430\u0434\u0430\u0447\u044e \u0441\u043e \u0441\u0442\u0430\u0442\u0443\u0441\u043e\u043c \u0441\u0434\u0435\u043b\u0430\u043d\u043d\u043e",
     "status": 4,
@@ -77,6 +92,7 @@
   "model": "webapp.issuetracker",
   "pk": 30,
   "fields": {
+    "project": 1,
     "summary": "None",
     "description": "None description",
     "status": 2,
@@ -91,6 +107,7 @@
   "model": "webapp.issuetracker",
   "pk": 31,
   "fields": {
+    "project": 1,
     "summary": "None",
     "description": "None description",
     "status": 2,
@@ -105,6 +122,7 @@
   "model": "webapp.issuetracker",
   "pk": 32,
   "fields": {
+    "project": 1,
     "summary": "Fixing bug",
     "description": "None description",
     "status": 4,
@@ -119,6 +137,7 @@
   "model": "webapp.issuetracker",
   "pk": 33,
   "fields": {
+    "project": 1,
     "summary": "This in not a Bug!",
     "description": "Write task",
     "status": 2,
@@ -135,6 +154,7 @@
   "model": "webapp.issuetracker",
   "pk": 34,
   "fields": {
+    "project": 1,
     "summary": "ORM",
     "description": "Write queries",
     "status": 4,
@@ -147,13 +167,14 @@
 },
 {
   "model": "webapp.issuetracker",
-  "pk": 35,
+  "pk": 39,
   "fields": {
-    "summary": "New",
-    "description": "New task",
+    "project": 1,
+    "summary": "The Same",
+    "description": "The Same",
     "status": 3,
-    "completion_time": "2020-08-15T12:35:30.419Z",
-    "update_at": "2020-08-15T12:35:30.419Z",
+    "completion_time": "2020-08-15T17:21:36.418Z",
+    "update_at": "2020-08-15T17:21:36.418Z",
     "type": [
       1
     ]
@@ -161,27 +182,134 @@
 },
 {
   "model": "webapp.issuetracker",
-  "pk": 36,
+  "pk": 40,
   "fields": {
-    "summary": "New",
-    "description": "New task more",
-    "status": 4,
-    "completion_time": "2020-08-15T12:36:04.581Z",
-    "update_at": "2020-08-15T12:36:04.581Z",
+    "project": 1,
+    "summary": "None",
+    "description": "None description",
+    "status": 2,
+    "completion_time": "2020-08-18T17:52:46.847Z",
+    "update_at": "2020-08-18T17:52:46.847Z",
     "type": [
-      3
+      1
     ]
   }
 },
 {
   "model": "webapp.issuetracker",
-  "pk": 39,
+  "pk": 41,
   "fields": {
-    "summary": "The Same",
-    "description": "The Same",
-    "status": 3,
-    "completion_time": "2020-08-15T17:21:36.418Z",
-    "update_at": "2020-08-15T17:21:36.418Z",
+    "project": 1,
+    "summary": "None",
+    "description": "None description",
+    "status": 2,
+    "completion_time": "2020-08-18T17:52:55.236Z",
+    "update_at": "2020-08-18T17:52:55.236Z",
+    "type": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.issuetracker",
+  "pk": 42,
+  "fields": {
+    "project": 1,
+    "summary": "None",
+    "description": "None description",
+    "status": 2,
+    "completion_time": "2020-08-18T17:53:04.525Z",
+    "update_at": "2020-08-18T17:53:04.526Z",
+    "type": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.issuetracker",
+  "pk": 43,
+  "fields": {
+    "project": 1,
+    "summary": "None",
+    "description": "None description",
+    "status": 2,
+    "completion_time": "2020-08-18T17:53:12.993Z",
+    "update_at": "2020-08-18T17:53:12.993Z",
+    "type": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.issuetracker",
+  "pk": 44,
+  "fields": {
+    "project": 1,
+    "summary": "None",
+    "description": "None description",
+    "status": 2,
+    "completion_time": "2020-08-18T17:53:21.261Z",
+    "update_at": "2020-08-18T17:53:21.261Z",
+    "type": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.issuetracker",
+  "pk": 45,
+  "fields": {
+    "project": 1,
+    "summary": "None",
+    "description": "None description",
+    "status": 2,
+    "completion_time": "2020-08-18T17:53:49.525Z",
+    "update_at": "2020-08-18T17:53:49.525Z",
+    "type": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.issuetracker",
+  "pk": 46,
+  "fields": {
+    "project": 1,
+    "summary": "None",
+    "description": "None description",
+    "status": 2,
+    "completion_time": "2020-08-18T17:53:57.370Z",
+    "update_at": "2020-08-18T17:53:57.370Z",
+    "type": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.issuetracker",
+  "pk": 47,
+  "fields": {
+    "project": 1,
+    "summary": "SearchView",
+    "description": "\u0414\u043e\u0431\u0430\u0432\u043b\u0435\u043d\u043e \u043f\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043b\u0435\u043d\u0438\u0435 SearchView",
+    "status": 4,
+    "completion_time": "2020-08-19T16:20:22.147Z",
+    "update_at": "2020-08-19T16:20:22.147Z",
+    "type": [
+      1
+    ]
+  }
+},
+{
+  "model": "webapp.issuetracker",
+  "pk": 48,
+  "fields": {
+    "project": 1,
+    "summary": "Foreign_key",
+    "description": "\u0421\u0434\u0435\u043b\u0430\u0442\u044c \u0444\u043e\u0440\u0435\u043d \u043a\u0435\u0439 \u043e\u0434\u0438\u043d \u043a\u043e \u043c\u043d\u043e\u0433\u0438\u043c \u043e\u0442 \u0437\u0430\u0434\u0430\u0447 \u043a \u043f\u0440\u043e\u0435\u043a\u0442\u0443",
+    "status": 2,
+    "completion_time": "2020-08-22T11:19:51.681Z",
+    "update_at": "2020-08-22T11:19:51.681Z",
     "type": [
       1
     ]
@@ -234,7 +362,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$150000$TwYE8cZV1RxG$KslLljs6PPcXyPeHOmJI3IZi2iMXCI4m2QcMsnKXdqc=",
-    "last_login": "2020-08-15T15:10:13.024Z",
+    "last_login": "2020-08-22T11:05:23.235Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",

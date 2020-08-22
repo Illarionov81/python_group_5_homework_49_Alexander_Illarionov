@@ -15,8 +15,16 @@ class Project(models.Model):
     starts_date = models.DateField(null=False, blank=False, verbose_name='дата начала')
     finish_date = models.DateField(null=True, blank=True, verbose_name='дата окончания')
 
+    def __str__(self):
+        return "{}. {}".format(self.pk, self.name)
+
+    class Meta:
+        verbose_name = 'Проект'
+        verbose_name_plural = 'Проекты'
+
 
 class IssueTracker(models.Model):
+    project = models.ForeignKey('webapp.Project', related_name='issue', on_delete=models.PROTECT, verbose_name='Проект')
     summary = models.CharField(max_length=300, null=False, blank=False, default="None", verbose_name='Задание',
                                validators=[is_title, ])
     description = models.TextField(max_length=3500, null=True, blank=True, default="None description", verbose_name='Описание',
