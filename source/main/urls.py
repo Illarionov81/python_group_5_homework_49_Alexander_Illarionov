@@ -16,16 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from webapp.views import TasksView, OneTaskView, TaskDeleteView, TaskCreateView, \
-    TaskUpdateView, multi_delete, ProjectsView
-
+    TaskUpdateView, multi_delete, ProjectsView, OneProjectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', ProjectsView.as_view(), name='projects'),
+    path('project/<int:pk>/', OneProjectView.as_view(), name='project_view'),
     # path('', TasksView.as_view(), name='index'),
-    path('task/<int:pk>/', OneTaskView.as_view(), name='task_view'),
-    path('task/<int:pk>/delete/', TaskDeleteView.as_view(), name='task_delete_view'),
-    path('task/add/', TaskCreateView.as_view(), name='task_add_view'),
+    path('project/<int:pk>/task/', OneTaskView.as_view(), name='task_view'),
+    path('project/<int:pk>/task/delete/', TaskDeleteView.as_view(), name='task_delete_view'),
+    path('project/<int:pk>/task/add/', TaskCreateView.as_view(), name='task_add_view'),
     path('task/<int:pk>/update/', TaskUpdateView.as_view(), name='task_update_view'),
     path('multi_delete/', multi_delete, name='multi_delete')
 

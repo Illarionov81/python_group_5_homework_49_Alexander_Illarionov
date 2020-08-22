@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'project/project_base.html' %}
 
 {% block title %}Projects: {% endblock %}
 
@@ -11,28 +11,28 @@
         {% include 'partial/pagination.html' %}
     {% endif %}
     <hr>
-{#    <form action="{% url 'multi_delete'%}" method="POST">#}
-{#    {% csrf_token %}#}
-{#        <div class="row">#}
-{#            <div class="col col-lg-6"><h1 class="pt-4"><b>Projects: </b></h1></div>#}
-{#            <div class="col col-lg-6 pt-4 mt-2 type_battot_delete_all">#}
-{#                <input class="btn btn-danger" type="submit" value="Удалить выбранные проекты">#}
-{#            </div>#}
-{#        </div>#}
+    <form action="{% url 'multi_delete'%}" method="POST">
+    {% csrf_token %}
+        <div class="row">
+            <div class="col col-lg-6"><h1 class="pt-4"><b>Projects: </b></h1></div>
+            <div class="col col-lg-6 pt-4 mt-2 type_battot_delete_all">
+                <input class="btn btn-danger" type="submit" value="Удалить выбранные проекты">
+            </div>
+        </div>
 
     {% for project in projects_list %}
         <div class="row">
-{#            <div class="col col-lg-2">#}
-{#                <label>#}
-{#                    <input class="ml-4" type="checkbox" name="id" value="{{ project.pk }}">#}
-{#                </label>#}
-{#            </div>#}
+            <div class="col col-lg-2">
+                <label>
+                    <input class="ml-4" type="checkbox" name="id" value="{{ project.pk }}">
+                </label>
+            </div>
             <div class="col col-lg-6">
-                <h3><a href="{% url 'task_view' project.pk %}">№{{ project.pk }}. Project: <b>{{ project.name }}</b></a> </h3>
+                <h3><a href="{% url 'project_view' project.pk %}">№{{ project.pk }}. Project: <b>{{ project.name }}</b></a> </h3>
                     <p>Name: {{ project.name }} </p>
                     <p>Start date: {{ project.starts_date }}</p>
                     <p>Finish date: {{ project.finish_date }}</p>
-                     <p>Tasks: {% for task in project.issue.all %}{{ task  }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+{#                     <p>Tasks: {% for task in project.issue.all %}№ {{ task.id }} - {{ task.summary }}{% if not forloop.last %}<br> {% endif %}{% endfor %}</p>#}
             </div>
 {#            <div class="coL col-lg-1 mt-5">#}
 {#                <a href="{% url 'task_update_view' project.pk %}" ><button type="submit"  class="btn btn-success">Update</button></a>#}
@@ -44,7 +44,7 @@
         <hr>
     {% endfor %}
 
-{#    </form>#}
+    </form>
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}

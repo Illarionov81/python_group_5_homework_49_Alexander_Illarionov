@@ -34,8 +34,8 @@ class IssueTracker(models.Model):
     completion_time = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     update_at = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
 
-    def __str__(self):
-        return "{}. {}".format(self.pk, self.summary)
+    # def __str__(self):
+    #     return "{}. {}".format(self.pk, self.summary)
 
     class Meta:
         verbose_name = 'Задача'

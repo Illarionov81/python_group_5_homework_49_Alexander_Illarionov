@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "project/project_base.html" %}
 
 {% block title %}Delete Task{% endblock %}
 
@@ -11,13 +11,13 @@
 {% block contant %}
     <div class="coL col-lg-12 mt-5">
         <h1 class="pt-4">Вы действительно хотите удалить задачу: # <b class="text-primary">{{ task.pk }}</b> ?</h1>
-        <p><h3>Задача:</h3> {{ task.summary }}. <h3>Время создания задачи:</h3> {{ task.completion_time }}.</p>
+            <h3>Задача:</h3> {{ task.summary }}. <h3>Время создания задачи:</h3> {{ task.completion_time }}.
     </div>
     <div class="row">
         <form method="POST" action="{% url "task_delete_view" task.pk %}" class="text-center">
             {% csrf_token %}
         <div class="coL col-lg-3 ml-5 mt-1">
-            <a href="{% url 'task_delete_view' task.pk %}" >
+            <a href="{% url 'task_delete_view' task.project.pk %}" >
                 <button type="submit"  class="btn btn-danger">Delete</button>
             </a>
         </div>
