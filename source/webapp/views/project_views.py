@@ -1,7 +1,9 @@
 from django.core.paginator import Paginator
-from django.views.generic import ListView, DetailView
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
+from django.views.generic import ListView, DetailView, CreateView
 
-from webapp.forms import SimpleSearchForm
+from webapp.forms import SimpleSearchForm, ProjectForm
 from webapp.models import Project
 
 
@@ -10,7 +12,7 @@ class ProjectsView(ListView):
     context_object_name = 'projects_list'
     model = Project
     form = SimpleSearchForm
-    paginate_by = 10
+    paginate_by = 3
     paginate_orphans = 1
 
 
@@ -39,3 +41,13 @@ class OneProjectView(DetailView):
             return page.object_list, page, is_paginated
         else:
             return issues, None, False
+
+
+class ProjectCreateView(CreateView):
+    model = Project
+    template_name = 'project/project_create.html'
+    form_class = ProjectForm
+
+    def get_success_url(self):
+        return reverse('project_view', kwargs={'pk': self.object.pk})
+

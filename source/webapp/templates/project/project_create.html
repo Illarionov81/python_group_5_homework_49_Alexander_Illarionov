@@ -1,0 +1,8 @@
+{% extends 'project/project_base.html' %}
+
+{% block title %}Create Project{% endblock %}
+
+{% block contant %}
+    <h3 class=" col-md-6 pt-4"><b>Create Project:</b></h3>
+    {% include 'partial/form.html' with  form_method='post' %}
+{% endblock %}

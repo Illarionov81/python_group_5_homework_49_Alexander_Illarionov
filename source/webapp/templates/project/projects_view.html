@@ -7,9 +7,13 @@
 {% endblock %}
 {% block contant %}
     <hr>
+    <div class="row">
+        <div class="col col-lg-12 mt-3">
     {% if is_paginated %}
         {% include 'partial/pagination.html' %}
     {% endif %}
+        </div>
+    </div>
     <hr>
     <form action="{% url 'multi_delete'%}" method="POST">
     {% csrf_token %}
