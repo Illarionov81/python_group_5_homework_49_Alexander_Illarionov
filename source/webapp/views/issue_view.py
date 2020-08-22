@@ -2,15 +2,14 @@ from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
-from webapp.base_views import SearchView
+from webapp.views.base_views import SearchView
 from webapp.models import IssueTracker
 from webapp.forms import TaskForm, SimpleSearchForm
-from django.views.generic import View, TemplateView, FormView, ListView
-from django.utils.http import urlencode
+from django.views.generic import View, TemplateView, FormView
 
 
 class TasksView(SearchView):
-    template_name = 'index.html'
+    template_name = 'task/index.html'
     context_object_name = 'task_list'
     model = IssueTracker
     paginate_by = 10
@@ -62,7 +61,7 @@ class TasksView(SearchView):
 
 
 class OneTaskView(TemplateView):
-    template_name = 'task.html'
+    template_name = 'task/task.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -76,7 +75,7 @@ class TaskDeleteView(View):
     def get(self, request, pk):
         task = get_object_or_404(IssueTracker, pk=pk)
         if request.method == 'GET':
-            return render(request, 'delete.html', context={'task': task})
+            return render(request, 'task/delete.html', context={'task': task})
 
     def post(self, request, pk):
         task = get_object_or_404(IssueTracker, pk=pk)
@@ -91,7 +90,7 @@ def multi_delete(request):
 
 
 class TaskCreateView(FormView):
-    template_name = 'task_create.html'
+    template_name = 'task/task_create.html'
     form_class = TaskForm
 
     def form_valid(self, form):
@@ -103,7 +102,7 @@ class TaskCreateView(FormView):
 
 
 class TaskUpdateView(FormView):
-    template_name = 'task_update.html'
+    template_name = 'task/task_update.html'
     form_class = TaskForm
 
     def dispatch(self, request, *args, **kwargs):

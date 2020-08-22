@@ -1,27 +1,12 @@
 from django import forms
-from django.core.exceptions import ValidationError
 from django.forms import widgets
-from webapp.models import IssueTracker, Status, Type, Project
-from django.core.validators import BaseValidator
-from django.utils.deconstruct import deconstructible
+from webapp.models import IssueTracker, Project
 
-
-# @deconstructible
-# class MinLengthValidator(BaseValidator):
-#     message = 'Value "%(value)s" has length of %(show_value)d! It should be at least %(limit_value)d symbols long!'
-#     code = 'too_short'
-#
-#     def compare(self, a, b):
-#         return a < b
-#
-#     def clean(self, x):
-#         return len(x)
 
 class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'description', 'starts_date', 'finish_date']
-
 
 
 class TaskForm(forms.ModelForm):
@@ -33,15 +18,6 @@ class TaskForm(forms.ModelForm):
 
 class SimpleSearchForm(forms.Form):
     search = forms.CharField(max_length=100, required=False, label="Найти")
-
-
-# class TaskForm(forms.Form):
-#     summary = forms.CharField(max_length=300, required=True, label='Задание', validators=(is_title,))
-#     description = forms.CharField(max_length=3500, required=False, initial="None description",
-#                                   label='Описание', widget=forms.Textarea, validators=(MinLengthValidator(10),))
-#     status = forms.ModelChoiceField(queryset=Status.objects.all(), empty_label='New', label='Status')
-#     type = forms.ModelMultipleChoiceField(queryset=Type.objects.all(),  label='Type', widget=widgets.CheckboxSelectMultiple)
-
 
 
     # def clean(self):
