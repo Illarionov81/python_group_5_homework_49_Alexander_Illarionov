@@ -31,7 +31,7 @@ class ProjectsView(ListView):
             search = form.cleaned_data['search']
             if search:
                 data = data.filter(Q(name__icontains=search) | Q(description__icontains=search))
-        return data.order_by('-starts_date')
+        return data.order_by('starts_date')
 
 
 

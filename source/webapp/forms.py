@@ -7,6 +7,10 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ['name', 'description', 'starts_date', 'finish_date']
+        widgets = {
+                    'starts_date': forms.widgets.SelectDateWidget,
+                    'finish_date': forms.widgets.SelectDateWidget,
+                   }
 
 
 class TaskForm(forms.ModelForm):
