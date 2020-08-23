@@ -30,6 +30,7 @@ class OneTaskView(DetailView):
     model = IssueTracker
 
 
+
 class TaskDeleteView(View):
     def get(self, request, pk):
         task = get_object_or_404(IssueTracker, pk=pk)

@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView
@@ -14,6 +15,23 @@ class ProjectsView(ListView):
     form = SimpleSearchForm
     paginate_by = 3
     paginate_orphans = 1
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        form = SimpleSearchForm(data=self.request.GET)
+        if form.is_valid():
+            search = form.cleaned_data['search']
+            kwargs['search'] = search
+        return super().get_context_data(object_list=object_list, **kwargs)
+
+    def get_queryset(self):
+        data = self.model.objects.all()
+        # http://localhost:8000/?search=ygjkjhg
+        form = SimpleSearchForm(data=self.request.GET)
+        if form.is_valid():
+            search = form.cleaned_data['search']
+            if search:
+                data = data.filter(Q(name__icontains=search) | Q(description__icontains=search))
+        return data.order_by('-starts_date')
 
 
 
