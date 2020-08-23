@@ -8,6 +8,12 @@ from webapp.forms import SimpleSearchForm, ProjectForm
 from webapp.models import Project
 
 
+def multi_delete(request):
+    data = request.POST.getlist('id')
+    Project.objects.filter(pk__in=data).delete()
+    return redirect('projects')
+
+
 class ProjectsView(ListView):
     template_name = 'project/projects_view.html'
     context_object_name = 'projects_list'
@@ -32,7 +38,6 @@ class ProjectsView(ListView):
             if search:
                 data = data.filter(Q(name__icontains=search) | Q(description__icontains=search))
         return data.order_by('starts_date')
-
 
 
 class OneProjectView(DetailView):
