@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
 from webapp.views.base_views import SearchView
-from webapp.models import IssueTracker, Project
+from webapp.models import IssueTracker, Project, Type
 from webapp.forms import TaskForm, SimpleSearchForm
 from django.views.generic import View, TemplateView, FormView, DetailView, CreateView
 
@@ -28,7 +28,6 @@ class TasksView(SearchView):
 class OneTaskView(DetailView):
     template_name = 'task/task.html'
     model = IssueTracker
-
 
 
 class TaskDeleteView(View):
@@ -74,6 +73,7 @@ class TaskCreateView(CreateView):
         task = form.save(commit=False)
         task.project = project
         task.save()
+        form.save_m2m()
         return redirect('project_view', pk=project.pk)
 
 
