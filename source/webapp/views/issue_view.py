@@ -61,6 +61,14 @@ class TaskCreateView(CreateView):
         form.save_m2m()
         return redirect('project_view', pk=project.pk)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['project'] = get_object_or_404(
+            Project,
+            pk=self.kwargs.get('pk'),
+        )
+        return context
+
 
 class TaskUpdateView(UpdateView):
     template_name = 'task/task_update.html'
