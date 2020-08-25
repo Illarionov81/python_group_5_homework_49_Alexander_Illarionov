@@ -1,4 +1,4 @@
-{% extends 'project/project_base.html' %}
+{% extends 'project/../project_base.html' %}
 
 {% block title %}View project{% endblock %}
 
@@ -15,46 +15,52 @@
 {% endblock %}
 
 {% block contant %}
-<div class="col col-lg-12">
+<div class="col col-lg-12 ">
     <h1 class="pt-4"><b>Project: </b></h1>
     <h3>№{{ project.pk }}. Name: <b class="text-primary"> {{ project.name }}</b></h3>
     <p>Description: {{ project.description }}</p>
     <p>Start date: {{ project.starts_date }}</p>
     <p>Finish date: {{ project.finish_date }}</p>
     <hr>
+</div>
+<div class="col col-lg-12 ">
     <h3>Tasks:</h3>
-        <div class="row">
-            <div class="col col-lg-12">
+    <div class="row">
+        <div class="col col-lg-12">
+            {% if is_paginated %}
+                {% include 'partial/pagination.html' %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+<div class="col col-lg-12">
+    {% for task in issues %}
+    <hr>
+    <div class="row">
+        <div class="col col-lg-6">
+            <h3><a href="{% url 'task_view' task.pk %}">№{{ task.pk }}. Status: <b>{{ task.status.get_status_display }}</b></a> </h3>
+            <h3>Тип задачи: {% for type in task.type.all %}<b class="text-primary">{{ type.get_name_display }}</b>{% if not forloop.last%}, {% endif %}{% endfor %}</h3>
+                <p>Summary: {{ task.summary }} </p>
+                <p>Create time: {{ task.completion_time }}</p>
+                <p>Update_at: {{ task.update_at }}</p>
+        </div>
+        <div class="coL col-lg-1 mt-5">
+            <a href="{% url 'task_update_view' task.pk %}" ><button type="submit"  class="btn btn-success">Update</button></a>
+        </div>
+        <div class="coL col-lg-1 mt-5">
+            <a href="{% url 'task_delete_view' task.pk %}" ><button type="submit"  class="btn btn-danger">Delete</button></a>
+        </div>
+        <div class="coL col-lg-1 mt-5">
+            <a href="{% url 'task_view' task.pk %}" ><button type="submit"  class="btn btn-warning"> View </button></a>
+        </div>
+    </div>
+    {% endfor %}
+    <hr>
+    <div class="col col-lg-12">
         {% if is_paginated %}
             {% include 'partial/pagination.html' %}
         {% endif %}
-            </div>
-        </div>
-            {% for task in issues %}
-        <hr>
-        <div class="row">
-            <div class="col col-lg-6">
-                <h3><a href="{% url 'task_view' task.pk %}">№{{ task.pk }}. Status: <b>{{ task.status.get_status_display }}</b></a> </h3>
-                <h3>Тип задачи: {% for type in task.type.all %}<b class="text-primary">{{ type.get_name_display }}</b>{% if not forloop.last%}, {% endif %}{% endfor %}</h3>
-                    <p>Summary: {{ task.summary }} </p>
-                    <p>Create time: {{ task.completion_time }}</p>
-                    <p>Update_at: {{ task.update_at }}</p>
-            </div>
-            <div class="coL col-lg-1 mt-5">
-                <a href="{% url 'task_update_view' task.pk %}" ><button type="submit"  class="btn btn-success">Update</button></a>
-            </div>
-            <div class="coL col-lg-1 mt-5">
-                <a href="{% url 'task_delete_view' task.pk %}" ><button type="submit"  class="btn btn-danger">Delete</button></a>
-            </div>
-            <div class="coL col-lg-1 mt-5">
-                <a href="{% url 'task_view' task.pk %}" ><button type="submit"  class="btn btn-warning"> View </button></a>
-            </div>
-        </div>
-        {% endfor %}
-        <hr>
-        {% if is_paginated %}
-            {% include 'partial/pagination.html' %}
-        {% endif %}
+    </div>
 </div>
     <hr>
 {% endblock %}

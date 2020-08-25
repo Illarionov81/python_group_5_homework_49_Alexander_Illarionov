@@ -43,7 +43,7 @@ class TaskDeleteView(View):
         return redirect("project_view", pk=project_pk)
 
 
-def multi_delete(request):
+def multi_delete_task(request):
     data = request.POST.getlist('id')
     IssueTracker.objects.filter(pk__in=data).delete()
     return redirect('index')
