@@ -5,7 +5,7 @@ from django.urls import reverse
 from webapp.views.base_views import SearchView
 from webapp.models import IssueTracker, Project, Type
 from webapp.forms import TaskForm, SimpleSearchForm
-from django.views.generic import View, TemplateView, FormView, DetailView, CreateView, UpdateView
+from django.views.generic import View, TemplateView, FormView, DetailView, CreateView, UpdateView, DeleteView
 
 
 class TasksView(SearchView):
@@ -30,17 +30,13 @@ class OneTaskView(DetailView):
     model = IssueTracker
 
 
-class TaskDeleteView(View):
-    def get(self, request, pk):
-        task = get_object_or_404(IssueTracker, pk=pk)
-        if request.method == 'GET':
-            return render(request, 'task/delete.html', context={'task': task})
+class TaskDeleteView(DeleteView):
+    model = IssueTracker
+    template_name = 'task/delete.html'
+    context_object_name = 'task'
 
-    def post(self, request, pk):
-        task = get_object_or_404(IssueTracker, pk=pk)
-        project_pk = task.project.pk
-        task.delete()
-        return redirect("project_view", pk=project_pk)
+    def get_success_url(self):
+        return reverse("project_view", kwargs={'pk': self.object.project.pk})
 
 
 def multi_delete_task(request):
