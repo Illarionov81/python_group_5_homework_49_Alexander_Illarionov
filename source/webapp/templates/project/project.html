@@ -9,20 +9,28 @@
 {#<li class="nav-item px-3">#}
 {#    <a class="navbar-brand"  href="{% url 'task_delete_view' task.pk %}" >Удалить</a>#}
 {#</li>#}
-{#<li class="nav-item px-3">#}
-{#    <a class="navbar-brand"  href="{% url 'task_update_view' task.pk %}" >Редактировать</a>#}
-{#</li>#}
+<li class="nav-item px-3">
+    <a class="navbar-brand"  href="{% url 'project_update' project.pk %}" >Редактировать</a>
+</li>
 {% endblock %}
 
 {% block contant %}
-<div class="col col-lg-12 ">
-    <h1 class="pt-4"><b>Project: </b></h1>
-    <h3>№{{ project.pk }}. Name: <b class="text-primary"> {{ project.name }}</b></h3>
-    <p>Description: {{ project.description }}</p>
-    <p>Start date: {{ project.starts_date }}</p>
-    <p>Finish date: {{ project.finish_date }}</p>
-    <hr>
+<div class="row">
+    <div class="col col-lg-8 ">
+        <h1 class="pt-5"><b>Project: </b></h1>
+        <h3>№{{ project.pk }}. Name: <b class="text-primary"> {{ project.name }}</b></h3>
+        <div class="box">
+            <p >Description: </p>
+            <hr>
+            {{ project.description | linebreaks }}
+        </div>
+        <p><b>Start date: </b> {{ project.starts_date }} | <b> Finish date: </b> {{ project.finish_date }}</p>
+    </div>
+    <div class="coL col-lg-1 mt-5 pt-5">
+        <a href="{% url 'project_update' project.pk %}" ><button type="button"  class="btn btn-success">Update</button></a>
+    </div>
 </div>
+<hr>
 <div class="col col-lg-12 ">
     <h3>Tasks:</h3>
     <div class="row">

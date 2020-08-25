@@ -21,8 +21,12 @@
     <p>Тип задачи: {% for type in issuetracker.type.all %}<b class="text-primary">{{ type.get_name_display }}</b>{% if not forloop.last%}, {% endif %}{% endfor %}</p>
 
     <p>Summary : {{ issuetracker.summary }}</p>
-    <p>Description:  </p>
-    <pre>{{ issuetracker.description|linebreaks }}</pre>
+    <div class="box">
+        <p>Description:  </p>
+        <hr>
+        <pre>{{ issuetracker.description|linebreaks }}</pre>
+    </div>
+
     <p>Time to create: {{ issuetracker.completion_time }}</p>
     <p>Update_at : {{ issuetracker.update_at }}</p>
 </div>

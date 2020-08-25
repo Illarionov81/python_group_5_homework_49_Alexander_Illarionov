@@ -33,17 +33,20 @@
             </div>
             <div class="col col-lg-6">
                 <h3><a href="{% url 'project_view' project.pk %}">№{{ project.pk }}. Project: <b>{{ project.name }}</b></a> </h3>
-                    <p>Name: {{ project.name }} </p>
-                    <p>Start date: {{ project.starts_date }}</p>
-                    <p>Finish date: {{ project.finish_date }}</p>
-{#                     <p>Tasks: {% for task in project.issue.all %}№ {{ task.id }} - {{ task.summary }}{% if not forloop.last %}<br> {% endif %}{% endfor %}</p>#}
+                    <p><b>Name:</b> {{ project.name }} </p>
+                    <p><b>Start date: </b> {{ project.starts_date }} | <b> Finish date: </b> {{ project.finish_date }}</p>
+                    <a href="{% url 'project_view' project.pk %}"><h4 class="text-warning">Tasks amount: {{ project.issue.count }}</h4></a>
+{#                  <p>Tasks: {% for task in project.issue.all %}№ {{ task.id }} - {{ task.summary }}{% if not forloop.last %}<br> {% endif %}{% endfor %}</p>#}
             </div>
-{#            <div class="coL col-lg-1 mt-5">#}
-{#                <a href="{% url 'task_update_view' project.pk %}" ><button type="submit"  class="btn btn-success">Update</button></a>#}
-{#            </div>#}
+            <div class="coL col-lg-1 mt-5">
+                <a href="{% url 'project_update' project.pk %}" ><button type="button"  class="btn btn-success">Update</button></a>
+            </div>
 {#            <div class="coL col-lg-1 mt-5">#}
 {#                <a href="{% url 'task_delete_view' project.pk %}" ><button type="submit"  class="btn btn-danger">Delete</button></a>#}
 {#            </div>#}
+            <div class="coL col-lg-1 mt-5">
+                <a href="{% url 'project_view' project.pk %}" ><button type="button"  class="btn btn-warning"> View </button></a>
+            </div>
         </div>
         <hr>
     {% endfor %}

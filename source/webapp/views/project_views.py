@@ -2,7 +2,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from webapp.forms import SimpleSearchForm, ProjectForm
 from webapp.models import Project
@@ -69,6 +69,15 @@ class OneProjectView(DetailView):
 class ProjectCreateView(CreateView):
     model = Project
     template_name = 'project/project_create.html'
+    form_class = ProjectForm
+
+    def get_success_url(self):
+        return reverse('project_view', kwargs={'pk': self.object.pk})
+
+
+class ProjectUpdateView(UpdateView):
+    model = Project
+    template_name = 'project/project_update.html'
     form_class = ProjectForm
 
     def get_success_url(self):
