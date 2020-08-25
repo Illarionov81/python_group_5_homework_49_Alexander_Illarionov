@@ -5,7 +5,7 @@ from django.urls import reverse
 from webapp.views.base_views import SearchView
 from webapp.models import IssueTracker, Project, Type
 from webapp.forms import TaskForm, SimpleSearchForm
-from django.views.generic import View, TemplateView, FormView, DetailView, CreateView
+from django.views.generic import View, TemplateView, FormView, DetailView, CreateView, UpdateView
 
 
 class TasksView(SearchView):
@@ -49,17 +49,6 @@ def multi_delete_task(request):
     return redirect('index')
 
 
-# class TaskCreateView(FormView):
-#     template_name = 'task/task_create.html'
-#     form_class = TaskForm
-#
-#     def form_valid(self, form):
-#         self.task = form.save()
-#         return super().form_valid(form)
-#
-#     def get_success_url(self):
-#         return reverse('task_view', kwargs={'pk': self.task.pk})
-
 class TaskCreateView(CreateView):
     model = IssueTracker
     template_name = 'task/task_create.html'
@@ -77,33 +66,13 @@ class TaskCreateView(CreateView):
         return redirect('project_view', pk=project.pk)
 
 
-class TaskUpdateView(FormView):
+class TaskUpdateView(UpdateView):
     template_name = 'task/task_update.html'
     form_class = TaskForm
-
-    def dispatch(self, request, *args, **kwargs):
-        self.task = self.get_object()
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['task'] = self.task
-        return context
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs.pop('initial')
-        kwargs['instance'] = self.task
-        return kwargs
-
-    def form_valid(self, form):
-        self.task = form.save()
-        return super().form_valid(form)
-
-    def get_object(self):
-        pk = self.kwargs.get('pk')
-        return get_object_or_404(IssueTracker, pk=pk)
+    model = IssueTracker
+    context_object_name = 'task'
 
     def get_success_url(self):
-        return reverse('task_view', kwargs={'pk': self.task.pk})
+        return reverse('task_view', kwargs={'pk': self.object.pk})
+
 

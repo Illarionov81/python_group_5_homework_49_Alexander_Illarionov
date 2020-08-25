@@ -14,7 +14,7 @@
 {% block contant %}
 
     <h3 class=" col-md-6 pt-4"><b>Update task:</b></h3>
-    {% url "task_update_view" pk=task.pk as action_url %}
+    {% url "task_update_view" task.pk as action_url %}
     {% include 'partial/form.html' with action_url=action_url form_method='post' button_text='Update' %}
 
 {% endblock %}
