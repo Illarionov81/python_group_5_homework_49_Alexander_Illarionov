@@ -14,6 +14,7 @@ class Project(models.Model):
     description = models.TextField(max_length=300, null=False, blank=False, default="None", verbose_name='Описание')
     starts_date = models.DateField(null=False, blank=False, verbose_name='дата начала')
     finish_date = models.DateField(null=True, blank=True, verbose_name='дата окончания')
+    is_deleted = models.BooleanField(null=False, default=False)
 
     def __str__(self):
         return "{}. {}".format(self.pk, self.name)

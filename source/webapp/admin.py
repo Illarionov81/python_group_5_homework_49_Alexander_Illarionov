@@ -11,7 +11,7 @@ class IssueAdmin(admin.ModelAdmin):
 
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name',)
+    list_display = ('pk', 'is_deleted', 'name',)
     list_display_links = ('pk', 'name')
     search_fields = ('name',)
 

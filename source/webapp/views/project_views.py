@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -10,7 +11,11 @@ from webapp.models import Project
 
 def multi_delete(request):
     data = request.POST.getlist('id')
-    Project.objects.filter(pk__in=data).delete()
+    # Project.objects.filter(pk__in=data).delete()
+    projects = Project.objects.filter(pk__in=data)
+    for project in projects:
+        project.is_deleted = True
+        project.save()
     return redirect('projects')
 
 
@@ -28,9 +33,9 @@ class ProjectsView(ListView):
     #         search = form.cleaned_data['search']
     #         kwargs['search'] = search
     #     return super().get_context_data(object_list=object_list, **kwargs)
-    #
+
     def get_queryset(self):
-        data = self.model.objects.all()
+        data = self.model.objects.filter(is_deleted=False)
         # http://localhost:8000/?search=ygjkjhg
         form = SimpleSearchForm(data=self.request.GET)
         if form.is_valid():
@@ -45,6 +50,10 @@ class OneProjectView(DetailView):
     model = Project
     paginate_task_by = 5
     paginate_task_orphans = 0
+
+    def get_queryset(self):
+        data = self.model.objects.filter(is_deleted=False)
+        return data
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -88,5 +97,13 @@ class ProjectDeleteView(DeleteView):
     model = Project
     template_name = 'project/project_delete.html'
     success_url = reverse_lazy('projects')
+
+    def delete(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        project = get_object_or_404(self.model, pk=self.object.pk)
+        project.is_deleted = True
+        project.save()
+        return HttpResponseRedirect(success_url)
 
 

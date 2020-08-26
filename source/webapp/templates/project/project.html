@@ -17,7 +17,10 @@
 {% block contant %}
 <div class="row">
     <div class="col col-lg-8 ">
-        <h1 class="pt-5"><b>Project: №{{ project.pk }}. </b></h1>
+        <h1 class="pt-5"><b>Project: №{{ project.pk }}.
+            <a href="{% url 'project_update' project.pk %}" ><button type="button"  class="btn btn-success">Update</button></a>
+            <a href="{% url 'project_delete' project.pk %}" ><button type="button"  class="btn btn-danger">Delete. </button></a>
+        </b></h1>
         <h3> Name: <b class="text-primary"> {{ project.name }}</b></h3>
         <div class="box">
             <p >Description: </p>
@@ -25,11 +28,6 @@
             {{ project.description | linebreaks }}
         </div>
         <p><b>Start date: </b> {{ project.starts_date }} | <b> Finish date: </b> {{ project.finish_date }}</p>
-    </div>
-    <div class="coL col-lg-1 mt-5 pt-3">
-        <a href="{% url 'project_update' project.pk %}" ><button type="button"  class="btn btn-success">Update</button></a>
-        <hr>
-        <a href="{% url 'project_delete' project.pk %}" ><button type="button"  class="btn btn-danger">Delete. </button></a>
     </div>
 </div>
 <hr>
