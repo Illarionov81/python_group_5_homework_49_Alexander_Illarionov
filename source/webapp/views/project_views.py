@@ -89,6 +89,10 @@ class ProjectUpdateView(UpdateView):
     template_name = 'project/project_update.html'
     form_class = ProjectForm
 
+    def get_queryset(self):
+        data = self.model.objects.filter(is_deleted=False)
+        return data
+
     def get_success_url(self):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 
