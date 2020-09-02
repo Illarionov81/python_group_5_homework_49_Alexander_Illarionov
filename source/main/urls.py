@@ -18,7 +18,9 @@ from django.urls import path
 from webapp.views import TasksView, OneTaskView, TaskDeleteView, TaskCreateView, \
     TaskUpdateView, multi_delete, multi_delete_task, ProjectsView, OneProjectView, ProjectCreateView, \
     ProjectUpdateView, ProjectDeleteView
-from accounts.views import login_view, logout_view
+# from accounts.views import login_view, logout_view
+from django.contrib.auth.views import LoginView, LogoutView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,6 +38,8 @@ urlpatterns = [
     path('project/<int:pk>/task/update/', TaskUpdateView.as_view(), name='task_update_view'),
     path('multi_delete_task/', multi_delete_task, name='multi_delete_task'),
 
-    path('accounts/login/', login_view, name='login'),
-    path('accounts/logout/', logout_view, name='logout'),
+    # path('accounts/login/', login_view, name='login'),
+    # path('accounts/logout/', logout_view, name='logout'),
+    path('accounts/login/', LoginView.as_view(), name='login'),
+    path('accounts/logout/', LogoutView.as_view(), name='logout'),
 ]
