@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 
 
 def login_view(request):
+    from_url = request.META.get('HTTP_REFERER', 'products')
     context = {}
     if request.method == 'POST':
         username = request.POST.get('username')
