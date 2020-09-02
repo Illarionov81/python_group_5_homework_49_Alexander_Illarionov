@@ -18,9 +18,11 @@
     {% csrf_token %}
         <div class="row">
             <div class="col col-lg-6 "><h1><b>IssueTask: </b></h1></div>
+            {% if user.is_authenticated %}
             <div class="col col-lg-6 pt-2 pb-2 type_battot_delete_all">
                 <input class="btn btn-danger" type="submit" value="Удалить выбранные задачи">
             </div>
+            {% endif %}
         </div>
         <hr>
     {% for task in task_list %}
@@ -37,12 +39,14 @@
                     <p>Create time: {{ task.completion_time }}</p>
                     <p>Update_at: {{ task.update_at }}</p>
             </div>
+        {% if user.is_authenticated %}
             <div class="coL col-lg-1 mt-5">
                 <a href="{% url 'task_update_view' task.pk %}" ><button type="button"  class="btn btn-success">Update</button></a>
             </div>
             <div class="coL col-lg-1 mt-5">
                 <a href="{% url 'task_delete_view' task.pk %}" ><button type="button"  class="btn btn-danger">Delete</button></a>
             </div>
+        {% endif %}
             <div class="coL col-lg-1 mt-5">
                 <a href="{% url 'task_view' task.pk %}" ><button type="button"  class="btn btn-warning"> View </button></a>
             </div>

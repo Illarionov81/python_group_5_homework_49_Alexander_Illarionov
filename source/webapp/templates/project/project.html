@@ -3,9 +3,11 @@
 {% block title %}View project{% endblock %}
 
 {% block menu %}
+    {% if user.is_authenticated %}
     <li class="nav-item px-3">
         <a class="navbar-brand" href="{% url 'task_add_view' project.pk %}">Добавить задачу</a>
     </li>
+    {% endif %}
 {#    <li class="nav-item px-3">#}
 {#        <a class="navbar-brand"  href="{% url 'project_delete' project.pk %}" >Удалить</a>#}
 {#    </li>#}
@@ -18,8 +20,10 @@
 <div class="row">
     <div class="col col-lg-10 text-center">
         <h1 class="pt-5"><b>Project: №{{ project.pk }}.
+            {% if user.is_authenticated %}
             <a href="{% url 'project_update' project.pk %}" ><button type="button"  class="btn btn-success">Update</button></a>
             <a href="{% url 'project_delete' project.pk %}" ><button type="button"  class="btn btn-danger">Delete. </button></a>
+            {% endif %}
         </b></h1>
         <h3> Name: <b class="text-primary"> {{ project.name }}</b></h3>
         <div class="box">
@@ -52,12 +56,14 @@
                 <p>Create time: {{ task.completion_time }}</p>
                 <p>Update_at: {{ task.update_at }}</p>
         </div>
+        {% if user.is_authenticated %}
         <div class="coL col-lg-1 mt-5">
             <a href="{% url 'task_update_view' task.pk %}" ><button type="submit"  class="btn btn-success">Update</button></a>
         </div>
         <div class="coL col-lg-1 mt-5">
             <a href="{% url 'task_delete_view' task.pk %}" ><button type="submit"  class="btn btn-danger">Delete</button></a>
         </div>
+        {% endif %}
         <div class="coL col-lg-1 mt-5">
             <a href="{% url 'task_view' task.pk %}" ><button type="submit"  class="btn btn-warning"> View </button></a>
         </div>

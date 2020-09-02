@@ -17,5 +17,6 @@ def login_view(request):
 
 
 def logout_view(request):
+    from_url = request.META.get('HTTP_REFERER', 'products')
     logout(request)
-    return redirect('projects')
+    return redirect(from_url)

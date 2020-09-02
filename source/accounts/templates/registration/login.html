@@ -21,6 +21,5 @@
 {#    </form>#}
 
     <h1 class="mt-5 pt-5">Вход</h1>
-    {% url 'login' as action_url %}
-    {% include 'partial/form.html' with action_url=action_url form_method='post' %}
+    {% include 'partial/form.html' with  form_method='post' %}
 {% endblock %}

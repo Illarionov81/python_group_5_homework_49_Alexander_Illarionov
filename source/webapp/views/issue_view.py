@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
@@ -30,7 +32,7 @@ class OneTaskView(DetailView):
     model = IssueTracker
 
 
-class TaskDeleteView(DeleteView):
+class TaskDeleteView(LoginRequiredMixin, DeleteView):
     model = IssueTracker
     template_name = 'task/delete.html'
     context_object_name = 'task'
@@ -39,13 +41,14 @@ class TaskDeleteView(DeleteView):
         return reverse("project_view", kwargs={'pk': self.object.project.pk})
 
 
+@login_required
 def multi_delete_task(request):
     data = request.POST.getlist('id')
     IssueTracker.objects.filter(pk__in=data).delete()
     return redirect('index')
 
 
-class TaskCreateView(CreateView):
+class TaskCreateView(LoginRequiredMixin, CreateView):
     model = IssueTracker
     template_name = 'task/task_create.html'
     form_class = TaskForm
@@ -70,7 +73,7 @@ class TaskCreateView(CreateView):
         return context
 
 
-class TaskUpdateView(UpdateView):
+class TaskUpdateView(LoginRequiredMixin, UpdateView):
     template_name = 'task/task_update.html'
     form_class = TaskForm
     model = IssueTracker

@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -9,6 +11,7 @@ from webapp.forms import SimpleSearchForm, ProjectForm
 from webapp.models import Project
 
 
+@login_required
 def multi_delete(request):
     data = request.POST.getlist('id')
     # Project.objects.filter(pk__in=data).delete()
@@ -75,21 +78,21 @@ class OneProjectView(DetailView):
             return issues, None, False
 
 
-class ProjectCreateView(CreateView):
+class ProjectCreateView(LoginRequiredMixin, CreateView):
     model = Project
     template_name = 'project/project_create.html'
     form_class = ProjectForm
 
-    def dispatch(self, request, *args, **kwargs):
-        if self.request.user.is_authenticated:
-            return super().dispatch(request, *args, **kwargs)
-        return redirect('login')
+    # def dispatch(self, request, *args, **kwargs):
+    #     if self.request.user.is_authenticated:
+    #         return super().dispatch(request, *args, **kwargs)
+    #     return redirect('login')
 
     def get_success_url(self):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 
 
-class ProjectUpdateView(UpdateView):
+class ProjectUpdateView(LoginRequiredMixin, UpdateView):
     model = Project
     template_name = 'project/project_update.html'
     form_class = ProjectForm
@@ -102,7 +105,7 @@ class ProjectUpdateView(UpdateView):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 
 
-class ProjectDeleteView(DeleteView):
+class ProjectDeleteView(LoginRequiredMixin, DeleteView):
     model = Project
     template_name = 'project/project_delete.html'
     success_url = reverse_lazy('projects')

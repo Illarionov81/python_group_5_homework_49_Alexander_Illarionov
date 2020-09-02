@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+
+from accounts.views import logout_view
 from webapp.views import TasksView, OneTaskView, TaskDeleteView, TaskCreateView, \
     TaskUpdateView, multi_delete, multi_delete_task, ProjectsView, OneProjectView, ProjectCreateView, \
     ProjectUpdateView, ProjectDeleteView

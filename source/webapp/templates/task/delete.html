@@ -14,6 +14,7 @@
             <h3>Задача:</h3> {{ task.summary }}. <h3>Время создания задачи:</h3> {{ task.completion_time }}.
     </div>
     <div class="row">
+    {% if user.is_authenticated %}
         <form method="POST" action="{% url "task_delete_view" task.pk %}" class="text-center">
             {% csrf_token %}
         <div class="coL col-lg-3 ml-5 mt-1">
@@ -22,6 +23,7 @@
             </a>
         </div>
         </form>
+        {% endif %}
         <div class="coL col-lg-3  mt-1">
             <a href="{% url 'task_view' task.pk  %}" >
                 <button type="submit"  class="btn btn-primary">Отмена</button>
