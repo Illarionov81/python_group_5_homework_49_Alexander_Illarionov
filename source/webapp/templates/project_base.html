@@ -38,6 +38,9 @@
 {#                        <a class="navbar-brand" href="{% url 'login' %}">Вход</a>#}
                         <a class="navbar-brand" href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a>
                     </li>
+                    <li class="nav-item px-3">
+                        <a class="navbar-brand" href="{% url 'accounts:create' %}?next={{ request.get_full_path }}">Sing Up</a>
+                    </li>
                 </ul>
             {% endif %}
             </div>
