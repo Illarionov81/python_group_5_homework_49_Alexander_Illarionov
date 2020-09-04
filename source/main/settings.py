@@ -128,4 +128,4 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = 'projects'
 LOGOUT_REDIRECT_URL = 'projects'
 
-LOGIN_URL = "login"
+LOGIN_URL = "accounts:login"

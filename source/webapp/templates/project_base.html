@@ -30,13 +30,13 @@
                     {% endblock %}
                     <li class="nav-item px-3">
 {#                        <a class="navbar-brand" href="{% url 'logout' %}">Выход</a>#}
-                        <a class="navbar-brand" href="{% url 'logout' %}?next={{ request.get_full_path }}">Logout</a>
+                        <a class="navbar-brand" href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Logout</a>
                     </li>
         {% else %}
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item px-3">
 {#                        <a class="navbar-brand" href="{% url 'login' %}">Вход</a>#}
-                        <a class="navbar-brand" href="{% url 'login' %}?next={{ request.get_full_path }}">Login</a>
+                        <a class="navbar-brand" href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a>
                     </li>
                 </ul>
             {% endif %}
