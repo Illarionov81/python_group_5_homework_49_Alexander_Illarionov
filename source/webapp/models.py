@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator, ProhibitNullCharactersValidator
@@ -15,6 +16,8 @@ class Project(models.Model):
     starts_date = models.DateField(null=False, blank=False, verbose_name='дата начала')
     finish_date = models.DateField(null=True, blank=True, verbose_name='дата окончания')
     is_deleted = models.BooleanField(null=False, default=False)
+    users = models.ManyToManyField(get_user_model(), related_name='project',
+                                   verbose_name='users')
 
     def __str__(self):
         return "{}. {}".format(self.pk, self.name)
@@ -28,7 +31,8 @@ class IssueTracker(models.Model):
     project = models.ForeignKey('webapp.Project', related_name='issue', on_delete=models.PROTECT, verbose_name='Проект')
     summary = models.CharField(max_length=300, null=False, blank=False, default="None", verbose_name='Задание',
                                validators=[is_title, ])
-    description = models.TextField(max_length=3500, null=True, blank=True, default="None description", verbose_name='Описание',
+    description = models.TextField(max_length=3500, null=True, blank=True, default="None description",
+                                   verbose_name='Описание',
                                    validators=[is_null, ])
     status = models.ForeignKey('webapp.Status', related_name='issue', on_delete=models.PROTECT, verbose_name='Статус')
     type = models.ManyToManyField('webapp.Type', related_name='type', verbose_name='Тип')
