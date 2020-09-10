@@ -3,6 +3,7 @@
 {% block title %}Users: {% endblock %}
 
 {% block contant %}
+    {% if user.is_authenticated %}
     <hr>
 <div class="row">
     <form action="{% url 'multi_update' project.pk %}" method="POST">
@@ -51,7 +52,6 @@
     {% for user in users_list %}
         {% if not user in project_users %}
             <div class="row">
-                {% if user.is_authenticated %}
                 <div class="col col-lg-2">
                     <label>
                         <input class="ml-4" type="checkbox" name="id" value="{{ user.pk }}">
@@ -63,8 +63,8 @@
                 </div>
             </div>
             <hr>
-        {% endif %}
     {% endfor %}
     </form>
 </div>
+    {% endif %}
 {% endblock %}
