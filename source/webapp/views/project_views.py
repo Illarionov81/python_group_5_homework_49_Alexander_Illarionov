@@ -113,10 +113,19 @@ class OneProjectView(PermissionRequiredMixin, DetailView):
             return issues, None, False
 
 
-class ProjectCreateView(LoginRequiredMixin, CreateView):
+class ProjectCreateView(PermissionRequiredMixin, CreateView):
     model = Project
     template_name = 'project/project_create.html'
     form_class = ProjectForm
+    permission_required = 'webapp.add_project'
+
+    def form_valid(self, form):
+        user = self.request.user
+        project = form.save(commit=False)
+        project.save()
+        project.users.add(User.objects.get(pk=user.pk))
+        project.save()
+        return redirect('project_view', pk=project.pk)
 
     # def dispatch(self, request, *args, **kwargs):
     #     if self.request.user.is_authenticated:
