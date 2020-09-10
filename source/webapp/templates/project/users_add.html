@@ -17,19 +17,21 @@
         </div>
         <hr>
     {% for user in project_users %}
-        <div class="row">
-            {% if user.is_authenticated %}
-            <div class="col col-lg-2">
-                <label>
-                    <input class="ml-4" type="checkbox" name="id" value="{{ user.pk }}">
-                </label>
+        {% if  user != request.user %}
+            <div class="row">
+                {% if user.is_authenticated %}
+                    <div class="col col-lg-2">
+                        <label>
+                            <input class="ml-4" type="checkbox" name="id" value="{{ user.pk }}">
+                        </label>
+                    </div>
+                {% endif %}
+                <div class="col col-lg-8">
+                    <p><b>Name:</b> {{ user.username }} </p>
+                </div>
             </div>
-            {% endif %}
-            <div class="col col-lg-8">
-                <p><b>Name:</b> {{ user.username }} </p>
-            </div>
-        </div>
-        <hr>
+            <hr>
+        {% endif %}
     {% endfor %}
     </form>
 </div>
