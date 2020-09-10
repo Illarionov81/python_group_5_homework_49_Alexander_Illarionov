@@ -1,12 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic.base import View
 
 from webapp.forms import SimpleSearchForm, ProjectForm
 from webapp.models import Project
@@ -63,20 +65,31 @@ class AddUserInProject(ListView):
         return context
 
 
-def multi_update(request, pk):
-    data = request.POST.get('button')
-    users_id = request.POST.getlist('id')
-    project = Project.objects.get(pk=pk)
-    if data == 'Удалить пользователей':
-        for i in users_id:
-            project.users.remove(User.objects.get(pk=i))
-    if data == 'Добавить пользователей':
-        for i in users_id:
-            project.users.add(User.objects.get(pk=i))
-            project.save()
-    print(data)
-    print(users_id)
-    return redirect('project_view', pk)
+class UpdateUserInProject(PermissionRequiredMixin, View):
+    permission_required = 'webapp.change_users'
+
+    def post(self, request, *args, **kwargs):
+        data = self.request.POST.get('button')
+        users_id = self.request.POST.getlist('id')
+        project = Project.objects.get(pk=self.kwargs.get('pk'))
+        if data == 'Удалить пользователей':
+            for i in users_id:
+                project.users.remove(User.objects.get(pk=i))
+        if data == 'Добавить пользователей':
+            for i in users_id:
+                project.users.add(User.objects.get(pk=i))
+                project.save()
+        print(data)
+        print(users_id)
+        return redirect('project_view', pk=self.kwargs.get('pk'))
+
+    def has_permission(self):
+        project = get_object_or_404(Project, pk=self.kwargs.get('pk'),)
+        try:
+            user = project.users.get(pk=self.request.user.pk)
+        except ObjectDoesNotExist:
+            user = False
+        return super().has_permission() and user
 
 
 class OneProjectView(DetailView):
