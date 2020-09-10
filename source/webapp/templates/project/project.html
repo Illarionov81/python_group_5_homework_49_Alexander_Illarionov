@@ -3,7 +3,7 @@
 {% block title %}View project{% endblock %}
 
 {% block menu %}
-    {% if user.is_authenticated %}
+    {% if perms.webapp.add_issuetracker and request.user in users%}
     <li class="nav-item px-3">
         <a class="navbar-brand" href="{% url 'task_add_view' project.pk %}">Добавить задачу</a>
     </li>
@@ -14,8 +14,10 @@
 <div class="row">
     <div class="col col-lg-8 text-center">
         <h1 class="pt-5"><b>Project: №{{ project.pk }}.
-            {% if user.is_authenticated %}
+            {% if perms.webapp.change_project and request.user in users %}
             <a href="{% url 'project_update' project.pk %}" ><button type="button"  class="btn btn-success">Update</button></a>
+            {% endif %}
+            {% if perms.webapp.delete_project and request.user in users %}
             <a href="{% url 'project_delete' project.pk %}" ><button type="button"  class="btn btn-danger">Delete. </button></a>
             {% endif %}
         </b></h1>
@@ -31,7 +33,9 @@
         <div class="row1">
             <b class="pt-5 pl-3 pr-5">Users:</b>
             <a class="pl-5" href="{% url 'update_users_in_project' project.pk %}">
+            {% if perms.webapp.change_users and request.user in users%}
             <button type="button"  class="btn btn-warning ">Update</button>
+            {% endif %}
             </a>
         </div>
         <div class="row2">
@@ -64,10 +68,12 @@
                 <p>Create time: {{ task.completion_time }}</p>
                 <p>Update_at: {{ task.update_at }}</p>
         </div>
-        {% if user.is_authenticated %}
+        {% if perms.webapp.change_issuetracker and request.user in users %}
         <div class="coL col-lg-1 mt-5">
             <a href="{% url 'task_update_view' task.pk %}" ><button type="submit"  class="btn btn-success">Update</button></a>
         </div>
+        {% endif %}
+        {% if perms.webapp.delete_issuetracker and request.user in users %}
         <div class="coL col-lg-1 mt-5">
             <a href="{% url 'task_delete_view' task.pk %}" ><button type="submit"  class="btn btn-danger">Delete</button></a>
         </div>

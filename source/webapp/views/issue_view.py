@@ -39,15 +39,6 @@ class TaskDeleteView(PermissionRequiredMixin, DeleteView):
     context_object_name = 'task'
     permission_required = 'webapp.delete_issuetracker'
 
-    def has_permission(self, **kwargs):
-        task = get_object_or_404(IssueTracker, pk=self.kwargs.get('pk'), )
-        project = task.project
-        try:
-            user = project.users.get(pk=self.request.user.pk)
-        except ObjectDoesNotExist:
-            user = False
-        return super().has_permission() and user
-
     def get_success_url(self):
         return reverse("project_view", kwargs={'pk': self.object.project.pk})
 

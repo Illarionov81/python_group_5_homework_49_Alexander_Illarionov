@@ -19,18 +19,18 @@
         <div class="row">
             <div class="col col-lg-6 "><h1><b>IssueTask: </b></h1></div>
             {% if user.is_authenticated %}
-            <div class="col col-lg-6 pt-2 pb-2 type_battot_delete_all">
-                <input class="btn btn-danger" type="submit" value="Удалить выбранные задачи">
-            </div>
+{#            <div class="col col-lg-6 pt-2 pb-2 type_battot_delete_all">#}
+{#                <input class="btn btn-danger" type="submit" value="Удалить выбранные задачи">#}
+{#            </div>#}
             {% endif %}
         </div>
         <hr>
     {% for task in task_list %}
         <div class="row">
             <div class="col col-lg-2">
-                <label>
-                    <input class="ml-4" type="checkbox" name="id" value="{{ task.pk }}">
-                </label>
+{#                <label>#}
+{#                    <input class="ml-4" type="checkbox" name="id" value="{{ task.pk }}">#}
+{#                </label>#}
             </div>
             <div class="col col-lg-6">
                 <h3><a href="{% url 'task_view' task.pk %}">№{{ task.pk }}. Status: <b>{{ task.status.get_status_display }}</b></a> </h3>
@@ -39,10 +39,12 @@
                     <p>Create time: {{ task.completion_time }}</p>
                     <p>Update_at: {{ task.update_at }}</p>
             </div>
-        {% if user.is_authenticated %}
+        {% if perms.webapp.change_issuetracker and request.user in task.project.users.all %}
             <div class="coL col-lg-1 mt-5">
                 <a href="{% url 'task_update_view' task.pk %}" ><button type="button"  class="btn btn-success">Update</button></a>
             </div>
+            {% endif %}
+        {% if perms.webapp.delete_issuetracker and request.user in task.project.users.all %}
             <div class="coL col-lg-1 mt-5">
                 <a href="{% url 'task_delete_view' task.pk %}" ><button type="button"  class="btn btn-danger">Delete</button></a>
             </div>

@@ -18,8 +18,10 @@
 <div class="row">
     <div class="col col-lg-12 text-center">
         <h1 class="pt-4"><b>Task: №{{ issuetracker.pk }}.
-            {% if user.is_authenticated %}
+            {% if perms.webapp.change_issuetracker and request.user in  issuetracker.project.users.all %}
             <a href="{% url 'task_update_view' issuetracker.pk %}" ><button type="button"  class="btn btn-success">Update</button></a>
+            {% endif %}
+            {% if perms.webapp.delete_issuetracker and request.user in issuetracker.project.users.all %}
             <a href="{% url 'task_delete_view' issuetracker.pk %}" ><button type="button"  class="btn btn-danger">Delete</button></a>
             {% endif %}
         </b></h1>
