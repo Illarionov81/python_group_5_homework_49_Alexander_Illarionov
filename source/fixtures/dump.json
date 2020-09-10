@@ -7,7 +7,8 @@
     "description": "\u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435 Id \u0434\u043b\u044f \u043c\u0438\u0433\u0440\u0430\u0446\u0438\u0438 \u0441\u043e \u0441\u0432\u044f\u0437\u044c\u044e \u0441 \u0437\u0430\u0434\u0430\u0447\u0430\u043c\u0438",
     "starts_date": "2020-08-22",
     "finish_date": null,
-    "is_deleted": false
+    "is_deleted": false,
+    "users": []
   }
 },
 {
@@ -18,7 +19,8 @@
     "description": "Fulling",
     "starts_date": "2020-08-22",
     "finish_date": null,
-    "is_deleted": false
+    "is_deleted": false,
+    "users": []
   }
 },
 {
@@ -29,7 +31,8 @@
     "description": "Fulling list",
     "starts_date": "2020-08-22",
     "finish_date": null,
-    "is_deleted": false
+    "is_deleted": false,
+    "users": []
   }
 },
 {
@@ -40,7 +43,8 @@
     "description": "Make page create project",
     "starts_date": "2020-08-22",
     "finish_date": "2020-09-15",
-    "is_deleted": false
+    "is_deleted": false,
+    "users": []
   }
 },
 {
@@ -51,7 +55,8 @@
     "description": "Create project on base of CreateView reverse",
     "starts_date": "2020-08-22",
     "finish_date": "2020-08-23",
-    "is_deleted": false
+    "is_deleted": false,
+    "users": []
   }
 },
 {
@@ -62,7 +67,8 @@
     "description": "Test",
     "starts_date": "2020-08-22",
     "finish_date": "2020-09-15",
-    "is_deleted": false
+    "is_deleted": false,
+    "users": []
   }
 },
 {
@@ -73,7 +79,8 @@
     "description": "Add Date Widget in form",
     "starts_date": "2020-08-23",
     "finish_date": null,
-    "is_deleted": false
+    "is_deleted": false,
+    "users": []
   }
 },
 {
@@ -84,7 +91,8 @@
     "description": "add widget to both date fields",
     "starts_date": "2020-08-23",
     "finish_date": "2020-08-27",
-    "is_deleted": false
+    "is_deleted": false,
+    "users": []
   }
 },
 {
@@ -95,7 +103,20 @@
     "description": "Check field is_deleted",
     "starts_date": "2020-08-27",
     "finish_date": null,
-    "is_deleted": false
+    "is_deleted": false,
+    "users": []
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 10,
+  "fields": {
+    "name": "\u0412\u0438\u0442\u0430\u043b\u044f",
+    "description": "\u0423\u0447\u0438\u0442 \u0414\u0436\u0430\u0432\u0443 \u0412 \u0410\u0442\u0440\u0430\u043a\u0442\u043e\u0440\u0435",
+    "starts_date": "2020-08-22",
+    "finish_date": null,
+    "is_deleted": false,
+    "users": []
   }
 },
 {
@@ -433,24 +454,6 @@
   "pk": 4,
   "fields": {
     "name": "Bug"
-  }
-},
-{
-  "model": "auth.user",
-  "pk": 1,
-  "fields": {
-    "password": "pbkdf2_sha256$150000$TwYE8cZV1RxG$KslLljs6PPcXyPeHOmJI3IZi2iMXCI4m2QcMsnKXdqc=",
-    "last_login": "2020-08-22T11:05:23.235Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2020-08-05T15:19:36.093Z",
-    "groups": [],
-    "user_permissions": []
   }
 }
 ]

@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponseRedirect
@@ -48,11 +49,43 @@ class ProjectsView(ListView):
         return data.order_by('starts_date')
 
 
-class OneProjectView(DetailView):
+class AddUserInProject(ListView):
+    template_name = 'project/users_add.html'
+    context_object_name = 'users_list'
+    model = User
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        project = get_object_or_404(Project, pk=self.kwargs.get('pk'),)
+        project_users = project.users.all()
+        context['project'] = project
+        context['project_users'] = project_users
+        return context
+
+
+@login_required
+def multi_update(request, pk):
+    data = request.POST.get('button')
+    users_id = request.POST.getlist('id')
+    project = Project.objects.get(pk=pk)
+    if data == 'Удалить пользователей':
+        for i in users_id:
+            project.users.remove(User.objects.get(pk=i))
+    if data == 'Добавить пользователей':
+        for i in users_id:
+            project.users.add(User.objects.get(pk=i))
+            project.save()
+    print(data)
+    print(users_id)
+    return redirect('project_view', pk)
+
+
+class OneProjectView(PermissionRequiredMixin, DetailView):
     template_name = 'project/project.html'
     model = Project
     paginate_task_by = 5
     paginate_task_orphans = 0
+    permission_required = 'webapp.view_project'
 
     def get_queryset(self):
         data = self.model.objects.filter(is_deleted=False)
@@ -60,8 +93,10 @@ class OneProjectView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
+        project = self.get_object()
+        users = project.users.all()
         issues, page, is_paginated = self.paginate_comments(self.object)
+        context['users'] = users
         context['issues'] = issues
         context['page_obj'] = page
         context['is_paginated'] = is_paginated
