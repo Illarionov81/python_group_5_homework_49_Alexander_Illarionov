@@ -3,18 +3,15 @@
 {% block title %}View task{% endblock %}
 
 {% block menu %}
+    {% if user.is_authenticated %}
     <li class="nav-item px-3">
         <a class="navbar-brand"  href="{% url 'project_view' issuetracker.project.pk %}" >To Project</a>
     </li>
-{#<li class="nav-item px-3">#}
-{#    <a class="navbar-brand"  href="{% url 'task_delete_view' issuetracker.pk %}" >Удалить</a>#}
-{#</li>#}
-{#<li class="nav-item px-3">#}
-{#    <a class="navbar-brand"  href="{% url 'task_update_view' issuetracker.pk %}" >Редактировать</a>#}
-{#</li>#}
+{% endif %}
 {% endblock %}
 
 {% block contant %}
+{% if user.is_authenticated %}
 <div class="row">
     <div class="col col-lg-12 text-center">
         <h1 class="pt-4"><b>Task: №{{ issuetracker.pk }}.
@@ -49,6 +46,6 @@
 </div>
 
     <hr>
-
+{% endif %}
 {% endblock %}
 

@@ -5,6 +5,7 @@
     {% include 'partial/simple_search.html' %}
 {% endblock %}
 {% block contant %}
+    {% if user.is_authenticated %}
     <hr>
     <div class="row">
         <div class="col col-lg-12 mt-3">
@@ -63,4 +64,5 @@
     </div>
     <hr>
     <hr>
+    {% endif %}
 {% endblock %}
