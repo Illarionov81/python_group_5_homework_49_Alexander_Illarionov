@@ -63,7 +63,6 @@ class AddUserInProject(ListView):
         return context
 
 
-@login_required
 def multi_update(request, pk):
     data = request.POST.get('button')
     users_id = request.POST.getlist('id')
@@ -80,12 +79,11 @@ def multi_update(request, pk):
     return redirect('project_view', pk)
 
 
-class OneProjectView(PermissionRequiredMixin, DetailView):
+class OneProjectView(DetailView):
     template_name = 'project/project.html'
     model = Project
     paginate_task_by = 5
     paginate_task_orphans = 0
-    permission_required = 'webapp.view_project'
 
     def get_queryset(self):
         data = self.model.objects.filter(is_deleted=False)
@@ -136,10 +134,11 @@ class ProjectCreateView(PermissionRequiredMixin, CreateView):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 
 
-class ProjectUpdateView(LoginRequiredMixin, UpdateView):
+class ProjectUpdateView(PermissionRequiredMixin, UpdateView):
     model = Project
     template_name = 'project/project_update.html'
     form_class = ProjectForm
+    permission_required = 'webapp.change_project'
 
     def get_queryset(self):
         data = self.model.objects.filter(is_deleted=False)
@@ -149,10 +148,11 @@ class ProjectUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('project_view', kwargs={'pk': self.object.pk})
 
 
-class ProjectDeleteView(LoginRequiredMixin, DeleteView):
+class ProjectDeleteView(PermissionRequiredMixin, DeleteView):
     model = Project
     template_name = 'project/project_delete.html'
     success_url = reverse_lazy('projects')
+    permission_required = 'webapp.delete_project'
 
     def delete(self, request, *args, **kwargs):
         self.object = self.get_object()

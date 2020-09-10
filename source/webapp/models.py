@@ -25,6 +25,9 @@ class Project(models.Model):
     class Meta:
         verbose_name = 'Проект'
         verbose_name_plural = 'Проекты'
+        permissions = [
+            ('change_users', 'Может редактировать пользователей в проекте')
+        ]
 
 
 class IssueTracker(models.Model):
@@ -38,6 +41,8 @@ class IssueTracker(models.Model):
     type = models.ManyToManyField('webapp.Type', related_name='type', verbose_name='Тип')
     completion_time = models.DateTimeField(auto_now_add=True, verbose_name='Время создания')
     update_at = models.DateTimeField(auto_now=True, verbose_name='Время обновления')
+    users = models.ManyToManyField(get_user_model(), related_name='issue',
+                                   verbose_name='users')
 
     class Meta:
         verbose_name = 'Задача'

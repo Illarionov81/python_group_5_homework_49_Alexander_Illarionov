@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.db.models import Q
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
+from django.core.exceptions import ObjectDoesNotExist
 
 from webapp.views.base_views import SearchView
 from webapp.models import IssueTracker, Project, Type
@@ -32,10 +33,20 @@ class OneTaskView(DetailView):
     model = IssueTracker
 
 
-class TaskDeleteView(LoginRequiredMixin, DeleteView):
+class TaskDeleteView(PermissionRequiredMixin, DeleteView):
     model = IssueTracker
     template_name = 'task/delete.html'
     context_object_name = 'task'
+    permission_required = 'webapp.delete_issuetracker'
+
+    def has_permission(self, **kwargs):
+        task = get_object_or_404(IssueTracker, pk=self.kwargs.get('pk'), )
+        project = task.project
+        try:
+            user = project.users.get(pk=self.request.user.pk)
+        except ObjectDoesNotExist:
+            user = False
+        return super().has_permission() and user
 
     def get_success_url(self):
         return reverse("project_view", kwargs={'pk': self.object.project.pk})
@@ -48,16 +59,22 @@ def multi_delete_task(request):
     return redirect('index')
 
 
-class TaskCreateView(LoginRequiredMixin, CreateView):
+class TaskCreateView(PermissionRequiredMixin, CreateView):
     model = IssueTracker
     template_name = 'task/task_create.html'
     form_class = TaskForm
+    permission_required = 'webapp.add_issuetracker'
+
+    def has_permission(self, **kwargs):
+        project = get_object_or_404(Project, pk=self.kwargs.get('pk'),)
+        try:
+            user = project.users.get(pk=self.request.user.pk)
+        except ObjectDoesNotExist:
+            user = False
+        return super().has_permission() and user
 
     def form_valid(self, form):
-        project = get_object_or_404(
-            Project,
-            pk=self.kwargs.get('pk'),
-        )
+        project = get_object_or_404(Project, pk=self.kwargs.get('pk'),)
         task = form.save(commit=False)
         task.project = project
         task.save()
@@ -66,18 +83,25 @@ class TaskCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['project'] = get_object_or_404(
-            Project,
-            pk=self.kwargs.get('pk'),
-        )
+        context['project'] = get_object_or_404(Project, pk=self.kwargs.get('pk'),)
         return context
 
 
-class TaskUpdateView(LoginRequiredMixin, UpdateView):
+class TaskUpdateView(PermissionRequiredMixin, UpdateView):
     template_name = 'task/task_update.html'
     form_class = TaskForm
     model = IssueTracker
     context_object_name = 'task'
+    permission_required = 'webapp.change_issuetracker'
+
+    def has_permission(self, **kwargs):
+        task = get_object_or_404(IssueTracker, pk=self.kwargs.get('pk'),)
+        project = task.project
+        try:
+            user = project.users.get(pk=self.request.user.pk)
+        except ObjectDoesNotExist:
+            user = False
+        return super().has_permission() and user
 
     def get_success_url(self):
         return reverse('task_view', kwargs={'pk': self.object.pk})

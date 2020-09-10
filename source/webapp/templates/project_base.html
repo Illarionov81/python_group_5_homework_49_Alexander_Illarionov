@@ -29,7 +29,7 @@
                     {% block menu %}
                     {% endblock %}
                     <li class="nav-item px-3">
-                        <a class="navbar-brand" href="#">Привет {{ request.user.username }}</a>
+                        <a class="navbar-brand" href="#">Hi {{ request.user.username }}</a>
                     </li>
                     <li class="nav-item px-3">
                         <a class="navbar-brand" href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Logout</a>
