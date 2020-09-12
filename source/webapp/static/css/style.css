@@ -86,3 +86,19 @@ hr {
     margin: 10px;
     padding: 10px;
 }
+
+.avatar {
+    display: inline-block;
+    float: left;
+    width: 250px;
+    height: auto;
+    margin: 0 20px 20px 40px ;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.clear {
+    clear: both;
+}
