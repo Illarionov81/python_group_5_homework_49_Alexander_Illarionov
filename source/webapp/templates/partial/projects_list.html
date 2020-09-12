@@ -50,6 +50,8 @@
                 <a href="{% url 'project_view' project.pk %}" ><button type="button"  class="btn btn-warning"> View </button></a>
             </div>
         </div>
+        {% empty %}
+        <h2 class="text-center">Нет проектов</h2>
     <hr>
 {% endfor %}
 </form>

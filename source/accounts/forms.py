@@ -4,6 +4,8 @@ from django.contrib.auth.forms import UserCreationForm, UsernameField
 from django.core.exceptions import ValidationError
 from django.core.validators import ProhibitNullCharactersValidator
 
+from accounts.models import Profile
+
 
 class MyUserCreationForm(UserCreationForm):
     email = forms.EmailField()
@@ -26,3 +28,9 @@ class MyUserCreationForm(UserCreationForm):
         if errors:
             raise ValidationError(errors)
         return cleaned_data
+
+    # Автоматическое создание профилей
+    def save(self, commit=True):
+        user = super().save(commit=commit)
+        Profile.objects.create(user=user)
+        return user
