@@ -28,7 +28,9 @@
                     </div>
                 {% endif %}
                 <div class="col col-lg-8">
-                    <p><b>Name:</b> {{ user.username }} </p>
+                    <p><b>Name: </b>
+                        <a href="{% url 'accounts:detail' user.pk %}">{{ user.username }}</a>
+                    </p>
                 </div>
             </div>
             <hr>
@@ -50,19 +52,21 @@
         </div>
         <hr>
     {% for user in users_list %}
-        {% if not user in project_users %}
+        {% if  user not in project_users %}
             <div class="row">
                 <div class="col col-lg-2">
                     <label>
                         <input class="ml-4" type="checkbox" name="id" value="{{ user.pk }}">
                     </label>
                 </div>
-                {% endif %}
                 <div class="col col-lg-6">
-                    <p><b>Name:</b> {{ user.username }} </p>
+                    <p><b>Name: </b>
+                        <a href="{% url 'accounts:detail' user.pk %}">{{ user.username }}</a>
+                    </p>
                 </div>
             </div>
             <hr>
+        {% endif %}
     {% endfor %}
     </form>
 </div>
