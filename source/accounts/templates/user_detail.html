@@ -19,6 +19,6 @@
     <p>Почта: {{ user_obj.email }}</p>
     <p>О себе: {{ user_obj.profile.about_me }}</p>
 
-{#    <h2 class="text-center clear">Статьи автора:</h2>#}
-{#    {% include 'partial/article_list.html' %}#}
+    <h2 class="text-center clear">Проекты автора:</h2>
+    {% include 'partial/projects_list.html'  with projects_list=user_obj.project.all%}
 {% endblock %}
