@@ -1,0 +1,26 @@
+{%  extends 'project_base.html' %}
+
+{% block title %}Users: {% endblock %}
+
+{% block contant %}
+{% if user.is_authenticated %}
+    <hr>
+<div class="row">
+    <div class="col col-lg-8"><h2 class="pt-4 pl-5"><b>All Users: </b></h2></div>
+</div>
+    <hr>
+    {% for user in users_list %}
+<div class="row mt-4">
+    <div class="col col-lg-2 pl-5">
+        № {{ forloop.counter }}.
+    </div>
+    <div class="col col-lg-10">
+        <p><b>User Name: </b>
+            <a href="{% url 'accounts:detail' user.pk %}"> {{ user.get_full_name|default:user.username }}</a>
+        </p>
+    </div>
+</div>
+<hr class="mt-0">
+    {% endfor %}
+{% endif %}
+{% endblock %}

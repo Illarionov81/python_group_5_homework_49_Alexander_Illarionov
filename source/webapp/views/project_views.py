@@ -30,7 +30,7 @@ class ProjectsView(ListView):
     context_object_name = 'projects_list'
     model = Project
     form = SimpleSearchForm
-    paginate_by = 3
+    paginate_by = 5
     paginate_orphans = 1
 
     # def get_context_data(self, *, object_list=None, **kwargs):

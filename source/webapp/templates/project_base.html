@@ -20,34 +20,38 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        {% if user.is_authenticated %}
-            <a class="navbar-brand pl-3" href="{% url 'index' %}">Задачи</a>
-                <ul class="navbar-nav mr-auto">
-                    {% if perms.webapp.add_project %}
-                    <li class="nav-item px-3">
-                                <a class="navbar-brand" href="{% url 'project_create_view' %}">Create Project</a>
-                            </li>
+                {% if user.is_authenticated %}
+                    <a class="navbar-brand pl-3" href="{% url 'index' %}">Задачи</a>
+                    {% if perms.auth.view_user %}
+                    <a class="navbar-brand pl-3" href="{% url 'accounts:users' %}">Users</a>
                     {% endif %}
-                    {% block menu %}
-                    {% endblock %}
-                    <li class="nav-item px-3">
-                        <a class="navbar-brand" href="{% url 'accounts:detail' request.user.pk %}">
-                            Hi {{ request.user.username }}
-                        </a>
-                    </li>
-                    <li class="nav-item px-3">
-                        <a class="navbar-brand" href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Logout</a>
-                    </li>
-        {% else %}
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item px-3">
-                        <a class="navbar-brand" href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a>
-                    </li>
-                    <li class="nav-item px-3">
-                        <a class="navbar-brand" href="{% url 'accounts:create' %}?next={{ request.get_full_path }}">Sing Up</a>
-                    </li>
+                    <ul class="navbar-nav mr-auto">
+                        {% if perms.webapp.add_project %}
+                        <li class="nav-item px-3">
+                                    <a class="navbar-brand" href="{% url 'project_create_view' %}">Create Project</a>
+                                </li>
+                        {% endif %}
+                        {% block menu %}
+                        {% endblock %}
+                        <li class="nav-item px-3">
+                            <a class="navbar-brand" href="{% url 'accounts:detail' request.user.pk %}">
+                                Hi {{ request.user.username }}
+                            </a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="navbar-brand" href="{% url 'accounts:logout' %}?next={{ request.get_full_path }}">Logout</a>
+                        </li>
+                    {% else %}
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item px-3">
+                            <a class="navbar-brand" href="{% url 'accounts:login' %}?next={{ request.get_full_path }}">Login</a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a class="navbar-brand" href="{% url 'accounts:create' %}?next={{ request.get_full_path }}">Sing Up</a>
+                        </li>
+                    </ul>
+                {% endif %}
                 </ul>
-            {% endif %}
             </div>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                  <ul class="navbar-nav ">

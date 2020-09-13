@@ -1,10 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from django.views.generic import DetailView
+from django.views.generic import DetailView, ListView
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.core.paginator import Paginator
 
 from accounts.forms import MyUserCreationForm
@@ -68,7 +68,7 @@ class UserDetailView(LoginRequiredMixin, DetailView):
         return context
 
     def paginate_comments(self, user):
-        project = user.project.filter(is_deleted=False)
+        project = user.project.filter(is_deleted=False).order_by('starts_date')
         if project.count() > 0:
             paginator = Paginator(project, self.paginate_project_by, orphans=self.paginate_project_orphans)
             page = paginator.get_page(self.request.GET.get('page', 1))
@@ -76,3 +76,14 @@ class UserDetailView(LoginRequiredMixin, DetailView):
             return page.object_list, page, is_paginated
         else:
             return project, None, False
+
+
+class AllUserView(PermissionRequiredMixin, ListView):
+    model = User
+    template_name = 'users_view.html'
+    context_object_name = 'users_list'
+    paginate_by = 5
+    paginate_orphans = 1
+    permission_required = "auth.view_user"
+
+
