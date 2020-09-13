@@ -29,6 +29,7 @@ from  django.views.generic import CreateView
 #     from_url = request.META.get('HTTP_REFERER', 'products')
 #     logout(request)
 #     return redirect(from_url)
+from webapp.models import Project
 
 
 class RegisterView(CreateView):
@@ -54,15 +55,24 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'user_detail.html'
     context_object_name = 'user_obj'
-    # paginate_related_by = 5
-    # paginate_related_orphans = 0
+    paginate_project_by = 5
+    paginate_project_orphans = 0
 
-    # def get_context_data(self, **kwargs):
-    #     project = self.object.project
-    #     paginator = Paginator(project, self.paginate_related_by, orphans=self.paginate_related_orphans)
-    #     page_number = self.request.GET.get('page', 1)
-    #     page = paginator.get_page(page_number)
-    #     kwargs['page_obj'] = page
-    #     kwargs['project'] = page.object_list
-    #     kwargs['is_paginated'] = page.has_other_pages()
-    #     return super().get_context_data(**kwargs)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.get_object()
+        projects_list, page, is_paginated = self.paginate_comments(user)
+        context['projects_list'] = projects_list
+        context['page_obj'] = page
+        context['is_paginated'] = is_paginated
+        return context
+
+    def paginate_comments(self, user):
+        project = user.project.filter(is_deleted=False)
+        if project.count() > 0:
+            paginator = Paginator(project, self.paginate_project_by, orphans=self.paginate_project_orphans)
+            page = paginator.get_page(self.request.GET.get('page', 1))
+            is_paginated = paginator.num_pages > 1
+            return page.object_list, page, is_paginated
+        else:
+            return project, None, False
