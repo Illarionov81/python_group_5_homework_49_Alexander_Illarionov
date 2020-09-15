@@ -234,13 +234,42 @@
     "finish_date": null,
     "is_deleted": false,
     "users": [
-      19
+      19,
+      22
     ]
   }
 },
 {
   "model": "webapp.project",
   "pk": 19,
+  "fields": {
+    "name": "None",
+    "description": "None",
+    "starts_date": "2020-01-01",
+    "finish_date": null,
+    "is_deleted": false,
+    "users": [
+      19
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 20,
+  "fields": {
+    "name": "None",
+    "description": "None",
+    "starts_date": "2020-01-01",
+    "finish_date": null,
+    "is_deleted": false,
+    "users": [
+      17
+    ]
+  }
+},
+{
+  "model": "webapp.project",
+  "pk": 21,
   "fields": {
     "name": "None",
     "description": "None",
@@ -625,6 +654,22 @@
     "status": 2,
     "completion_time": "2020-09-10T12:50:04.095Z",
     "update_at": "2020-09-10T12:50:04.095Z",
+    "type": [
+      1
+    ],
+    "users": []
+  }
+},
+{
+  "model": "webapp.issuetracker",
+  "pk": 65,
+  "fields": {
+    "project": 20,
+    "summary": "None",
+    "description": "None description",
+    "status": 3,
+    "completion_time": "2020-09-10T14:16:19.025Z",
+    "update_at": "2020-09-10T14:16:19.025Z",
     "type": [
       1
     ],
