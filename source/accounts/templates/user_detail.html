@@ -4,7 +4,7 @@
 
 {% block menu %}
     {% if request.user == user_obj %}
-        <a class="text-white px-3" href="{% url 'accounts:change' user_obj.pk %}">Редактировать</a>
+        <a class="text-white px-3" href="{% url 'accounts:change' user_obj.pk %}">Редактирование личных данных</a>
         <a class="text-white px-3" href="{% url "accounts:password_change" user_obj.pk %}">Смена пароля</a>
     {% endif %}
 {% endblock %}
