@@ -1,19 +1,15 @@
 {% extends 'project/../project_base.html' %}
 
 {% block menu %}
-    <li class="nav-item px-3">
-        <a class="navbar-brand"  href="{% url 'project_view' task.project.pk %}" >To Project</a>
-    </li>
-    <li class="nav-item px-3">
-        <a class="navbar-brand"  href="{% url 'task_view' task.pk %}" >Отмена</a>
-    </li>
+        <a class="text-white text-center px-3"  href="{% url 'project_view' task.project.pk %}" >To Project</a>
+        <a class="text-white text-center px-3"  href="{% url 'task_view' task.pk %}" >Отмена</a>
 {% endblock %}
 
 {% block title %}Update Task{% endblock %}
 
 {% block contant %}
-
-    <h3 class=" col-md-6 pt-4"><b>Update task:</b></h3>
+    <hr>
+    <h3 class=" col-md-6 pt-4 mt-3"><b>Update task:</b></h3>
     {% url "task_update_view" task.pk as action_url %}
     {% include 'partial/form.html' with action_url=action_url form_method='post' button_text='Update' %}
 

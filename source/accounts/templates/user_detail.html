@@ -4,12 +4,8 @@
 
 {% block menu %}
     {% if request.user == user_obj %}
-    <li class="nav-item px-3">
-        <a class="navbar-brand" href="{% url 'accounts:change' user_obj.pk %}">Редактировать</a>
-    </li>
-    <li class="nav-item px-3">
-        <a  class="navbar-brand" href="{% url "accounts:password_change" user_obj.pk %}">Смена пароля</a>
-    </li>
+        <a class="text-white px-3" href="{% url 'accounts:change' user_obj.pk %}">Редактировать</a>
+        <a class="text-white px-3" href="{% url "accounts:password_change" user_obj.pk %}">Смена пароля</a>
     {% endif %}
 {% endblock %}
 

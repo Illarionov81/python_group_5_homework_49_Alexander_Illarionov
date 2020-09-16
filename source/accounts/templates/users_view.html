@@ -3,7 +3,7 @@
 {% block title %}Users: {% endblock %}
 
 {% block contant %}
-{% if user.is_authenticated %}
+{% if user.is_authenticated and perms.auth.view_user %}
     <hr>
 <div class="row">
     <div class="col col-lg-8"><h2 class="pt-4 pl-5"><b>All Users: </b></h2></div>

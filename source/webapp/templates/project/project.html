@@ -4,9 +4,7 @@
 
 {% block menu %}
     {% if perms.webapp.add_issuetracker and request.user in users%}
-    <li class="nav-item px-3">
-        <a class="navbar-brand" href="{% url 'task_add_view' project.pk %}">Добавить задачу</a>
-    </li>
+        <a class="text-white text-center px-3" href="{% url 'task_add_view' project.pk %}">Добавить задачу</a>
     {% endif %}
 {% endblock %}
 
@@ -14,7 +12,7 @@
     {% if user.is_authenticated %}
 <div class="row">
     <div class="col col-lg-8 text-center">
-        <h1 class="pt-5"><b>Project: №{{ project.pk }}.
+        <h1 class="pt-5 mt-5"><b>Project: №{{ project.pk }}.
             {% if perms.webapp.change_project and request.user in users %}
             <a href="{% url 'project_update' project.pk %}" ><button type="button"  class="btn btn-success">Update</button></a>
             {% endif %}
@@ -30,9 +28,9 @@
         </div>
         <p><b>Start date: </b> {{ project.starts_date }} | <b> Finish date: </b> {{ project.finish_date }}</p>
     </div>
-    <div class="col col-lg-3 box pl-3 mt-5 mr-1">
+    <div class="col col-lg-3 box pl-3 mt-5 pt-5 mr-1">
         <div class="row1">
-            <b class="pt-5 pl-3 pr-5">Users:</b>
+            <b class="pt-5 mt-5 pl-3 pr-5">Users:</b>
             {% if perms.webapp.change_users and request.user in users %}
             <a class="pl-5" href="{% url 'update_users_in_project' project.pk %}">
             <button type="button"  class="btn btn-warning ">Update</button>
